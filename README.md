@@ -1,8 +1,8 @@
-# Footballer Profile Application
+# FUTEMON - Footballer Profile Application
 
 ## About This Project
 
-The Footballer Profile Application is a modern web application built with Laravel 12 that allows users to browse, search, and view detailed profiles of football players from around the world. The application integrates with the Sportmonks API to import and display comprehensive player data, including personal details, nationalities, positions, and more.
+FUTEMON is a modern web application built with Laravel 12 that allows users to browse, search, and view detailed profiles of football players from around the world. The application integrates with the Sportmonks API to import and display comprehensive player data, including personal details, nationalities, positions, and more.
 
 ### Key Features
 
@@ -22,7 +22,6 @@ The Footballer Profile Application is a modern web application built with Larave
 - **Database**: PostgreSQL
 - **Queue**: Database-driven queues
 - **Cache**: Redis
-- **Logging**: Graylog
 - **API**: Sportmonks Football API
 - **Containerization**: Docker & Docker Compose
 - **CI/CD**: GitHub Actions
@@ -48,8 +47,8 @@ The Footballer Profile Application is a modern web application built with Larave
 1. **Clone the repository**
 
    ```bash
-   git clone https://github.com/yourusername/footballer-profile.git
-   cd footballer-profile
+   git clone https://github.com/ps-carvalho/futemon
+   cd futemon
    ```
 
 2. **Create environment file**
@@ -64,7 +63,7 @@ The Footballer Profile Application is a modern web application built with Larave
 
    ```env
    # Application Configuration
-   APP_NAME="Footballer Profile"
+   APP_NAME="Futemon"
 
    # Database Configuration (Docker setup)
    DB_CONNECTION=pgsql
@@ -95,11 +94,6 @@ The Footballer Profile Application is a modern web application built with Larave
    CACHE_PLAYERS_TTL=3600
    CACHE_SEARCH_TTL=1800
    CACHE_NATIONALITIES_TTL=86400
-
-   # Graylog Configuration (Docker setup)
-   GRAYLOG_HOST=graylog
-   GRAYLOG_PORT=12201
-   LOG_CHANNEL=graylog
    ```
 
 4. **Start the Docker environment**
@@ -144,8 +138,8 @@ The Footballer Profile Application is a modern web application built with Larave
 1. **Clone the repository**
 
    ```bash
-   git clone https://github.com/yourusername/footballer-profile.git
-   cd footballer-profile
+   git clone https://github.com/ps-carvalho/futemon
+   cd futemon
    ```
 
 2. **Install PHP dependencies**
@@ -172,7 +166,7 @@ The Footballer Profile Application is a modern web application built with Larave
 
    ```env
    # Application Configuration
-   APP_NAME="Footballer Profile"
+   APP_NAME="Futemon"
 
    # Database Configuration
    DB_CONNECTION=pgsql
