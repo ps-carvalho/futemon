@@ -7,9 +7,8 @@ services:
     build:
       context: .
       dockerfile: docker/app/Dockerfile
-    image: footballer-profile-app
-    container_name: footballer-profile-app
-#    command: php artisan migrate
+    image: futemon-app
+    container_name: futemon-app
     restart: unless-stopped
     volumes:
       - .:/var/www/html
@@ -28,7 +27,7 @@ services:
   # Web Server (Nginx)
   nginx:
     image: nginx:1.25-alpine
-    container_name: footballer-profile-nginx
+    container_name: futemon-nginx
     restart: unless-stopped
     ports:
       - "8000:80"
@@ -44,7 +43,7 @@ services:
   # PostgreSQL Database
   postgres:
     image: postgres:16-alpine
-    container_name: footballer-profile-postgres
+    container_name: futemon-postgres
     restart: unless-stopped
     environment:
         POSTGRES_USER: username
@@ -61,7 +60,7 @@ services:
   # Redis Cache
   redis:
     image: redis:7-alpine
-    container_name: footballer-profile-redis
+    container_name: futemon-redis
     restart: unless-stopped
     volumes:
       - redis_data:/data
@@ -76,8 +75,8 @@ services:
     build:
       context: .
       dockerfile: docker/app/Dockerfile
-    image: footballer-profile-app
-    container_name: footballer-profile-queue
+    image: futemon-app
+    container_name: futemon-queue
     restart: unless-stopped
     command: php artisan queue:work --tries=3 --timeout=90
     volumes:
@@ -96,8 +95,8 @@ services:
     build:
       context: .
       dockerfile: docker/app/Dockerfile
-    image: footballer-profile-app
-    container_name: footballer-profile-scheduler
+    image: futemon-app
+    container_name: futemon-scheduler
     restart: unless-stopped
     command: php artisan schedule:work
     volumes:
