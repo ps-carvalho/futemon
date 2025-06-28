@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * @property-read int $id
- * @property-read int $sports_monk_id
+ * @property-read int $imported_id
  * @property-read int $position_id
  * @property-read int $country_id
  * @property-read string $name
@@ -29,7 +29,7 @@ final class Player extends Model
     use HasFactory;
 
     protected $fillable = [
-        'sports_monk_id',
+        'imported_id',
         'position_id',
         'country_id',
         'name',

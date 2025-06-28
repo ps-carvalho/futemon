@@ -11,7 +11,7 @@ final class PlayerFactory extends Factory
     public function definition(): array
     {
         return [
-            'sports_monk_id' => fake()->numberBetween(1, 5000),
+            'imported_id' => fake()->numberBetween(1, 5000),
             'position_id' => fake()->numberBetween(1, 5000),
             'country_id' => fake()->numberBetween(1, 5000),
             'name' => fake()->name('male'),

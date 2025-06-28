@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('players', function (Blueprint $table) {
             $table->id();
-            $table->integer('sports_monk_id');
+            $table->integer('imported_id')->index();
             $table->integer('position_id')->index();
             $table->integer('country_id')->index();
             $table->string('name')->index();

@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * @property-read int $id
+ * @property-read int $imported_id
  * @property-read string $name
  * @property-read string $official_name
  * @property-read string|null $image_path
@@ -25,6 +26,7 @@ final class Country extends Model
     use HasFactory;
 
     protected $fillable = [
+        'imported_id',
         'name',
         'official_name',
         'image_path',

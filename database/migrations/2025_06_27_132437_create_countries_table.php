@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('countries', function (Blueprint $table) {
             $table->id();
+            $table->integer('imported_id')->index();
             $table->string('name')->nullable();
             $table->string('official_name')->nullable();
             $table->string('fifa_name')->nullable();

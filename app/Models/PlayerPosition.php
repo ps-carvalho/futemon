@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * @property-read int $id
- * @property-read int $sports_monk_id
+ * @property-read int $imported_id
  * @property-read string $name
  * @property-read string $code
  * @property-read string $developer_name
@@ -25,7 +25,7 @@ final class PlayerPosition extends Model
     protected $table = 'player_position';
 
     protected $fillable = [
-        'sports_monk_id',
+        'imported_id',
         'name',
         'code',
         'developer_name',
