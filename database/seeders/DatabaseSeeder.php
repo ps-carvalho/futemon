@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace Database\Seeders;
 
-use App\Models\User;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Country;
+use App\Models\Player;
+use App\Models\PlayerPosition;
 use Illuminate\Database\Seeder;
 
 final class DatabaseSeeder extends Seeder
@@ -15,11 +16,15 @@ final class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        // Create some countries and positions first
+        $countries = Country::factory(70)->create();
+        $positions = PlayerPosition::factory(5)->create();
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+        // Create players with random existing relationships
+        Player::factory(10000)->create([
+            'country_id' => fn () => $countries->random()->id,
+            'position_id' => fn () => $positions->random()->id,
         ]);
+
     }
 }
