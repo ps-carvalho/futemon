@@ -51,6 +51,10 @@ final class ImportDataServiceTest extends TestCase
                     'common_name' => 'Test Player',
                     'gender' => 'male',
                     'display_name' => 'Test Player',
+                    'date_of_birth' => '1990-01-01', // Add this missing field
+                    'height' => 180, // Optional: Add height
+                    'weight' => 75,  // Optional: Add weight
+                    'image_path' => null, // Optional: Add image_path
                     'country' => ['id' => 1, 'name' => 'Test Country'],
                     'position' => ['id' => 1, 'name' => 'Test Position'],
                 ],

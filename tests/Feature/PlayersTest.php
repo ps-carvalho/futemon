@@ -5,11 +5,20 @@ declare(strict_types=1);
 namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Cache;
 use Tests\TestCase;
 
 final class PlayersTest extends TestCase
 {
     use RefreshDatabase;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        // Set the app as ready to prevent redirects in tests
+        Cache::put('app_setup_is_completed', true);
+    }
 
     /**
      * A basic test example.
