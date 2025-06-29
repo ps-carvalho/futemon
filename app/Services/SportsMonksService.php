@@ -116,17 +116,18 @@ final class SportsMonksService implements IImportService
                         'latitude' => $playerData['country']['latitude'] ?? null,
                     ]
                 );
-
-                $position = PlayerPosition::firstOrCreate(
-                    [
-                        'imported_id' => $playerData['country']['id'],
-                        'name' => $playerData['position']['name'] ?? null,
-                        'code' => $playerData['position']['code'] ?? null,
-                        'developer_name' => $playerData['position']['developer_name'] ?? null,
-                        'model_type' => $playerData['position']['model_type'] ?? null,
-                        'stat_group' => $playerData['position']['stat_group'] ?? null,
-                    ]
-                );
+                if(isset($playerData['position']['id'])) {
+                    $position = PlayerPosition::firstOrCreate(
+                        [
+                            'imported_id' => $playerData['position']['id'],
+                            'name' => $playerData['position']['name'] ?? null,
+                            'code' => $playerData['position']['code'] ?? null,
+                            'developer_name' => $playerData['position']['developer_name'] ?? null,
+                            'model_type' => $playerData['position']['model_type'] ?? null,
+                            'stat_group' => $playerData['position']['stat_group'] ?? null,
+                        ]
+                    );
+                }
 
                 Player::updateOrCreate(
                     [
@@ -137,7 +138,7 @@ final class SportsMonksService implements IImportService
                         'display_name' => $playerData['display_name'],
                         'image_path' => $playerData['image_path'] ?? null,
                         'country_id' => $country->id,
-                        'position_id' => $position->id,
+                        'position_id' => $position->id ?? null,
                         'date_of_birth' => $playerData['date_of_birth'] ?? null,
                         'height' => $playerData['height'] ?? null,
                         'weight' => $playerData['weight'] ?? null,

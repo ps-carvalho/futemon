@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('players', function (Blueprint $table) {
             $table->id();
             $table->integer('imported_id')->index();
-            $table->integer('position_id')->index();
+            $table->integer('position_id')->nullable()->index();
             $table->integer('country_id')->index();
             $table->string('name')->index();
             $table->string('common_name')->index();
