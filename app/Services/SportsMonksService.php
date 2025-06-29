@@ -116,7 +116,7 @@ final class SportsMonksService implements IImportService
                         'latitude' => $playerData['country']['latitude'] ?? null,
                     ]
                 );
-                if(isset($playerData['position']['id'])) {
+                if (isset($playerData['position']['id'])) {
                     $position = PlayerPosition::firstOrCreate(
                         [
                             'imported_id' => $playerData['position']['id'],
