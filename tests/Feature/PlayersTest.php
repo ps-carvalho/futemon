@@ -74,6 +74,4 @@ final class PlayersTest extends TestCase
             'direction' => 'desc',
         ]);
     }
-
-
 }

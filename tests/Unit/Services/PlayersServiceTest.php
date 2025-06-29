@@ -1,18 +1,20 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Tests\Services;
 
 use App\Contracts\Repositories\IPlayerRepository;
-use App\Services\PlayersService;
-use Tests\TestCase;
 use App\Models\Player;
+use App\Services\PlayersService;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Mockery;
+use Tests\TestCase;
 
 final class PlayersServiceTest extends TestCase
 {
     private IPlayerRepository $playerRepository;
+
     private PlayersService $playersService;
 
     protected function setUp(): void

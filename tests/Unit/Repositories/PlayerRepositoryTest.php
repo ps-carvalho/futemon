@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Repositories;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Tests\TestCase;
 use App\Contracts\Repositories\IPlayerRepository;
 use App\Models\Player;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Mockery;
+use Tests\TestCase;
 
 final class PlayerRepositoryTest extends TestCase
 {
