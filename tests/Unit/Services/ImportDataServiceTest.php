@@ -67,6 +67,18 @@ final class ImportDataServiceTest extends TestCase
 
         $this->service->importPlayers(1);
 
-        $this->assertTrue(true);
+        $this->assertDatabaseHas('players', [
+            'id' => 1,
+            'name' => 'Test Player',
+            'common_name' => 'Test Player',
+            'gender' => 'male',
+            'display_name' => 'Test Player',
+            'date_of_birth' => '1990-01-01',
+            'height' => 180,
+            'weight' => 75,
+            'image_path' => null,
+            'country_id' => 1,
+            'position_id' => 1,
+        ]);
     }
 }
