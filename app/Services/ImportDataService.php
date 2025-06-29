@@ -8,6 +8,7 @@ use App\Contracts\Services\IImportService;
 use App\Models\Country;
 use App\Models\Player;
 use App\Models\PlayerPosition;
+use Carbon\Carbon;
 use Exception;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
@@ -145,7 +146,7 @@ final class ImportDataService implements IImportService
                         'image_path' => $playerData['image_path'] ?? null,
                         'country_id' => $country->id,
                         'position_id' => $position->id ?? null,
-                        'date_of_birth' => $playerData['date_of_birth'] ?? null,
+                        'date_of_birth' => $this->parseDateOfBirth($playerData['date_of_birth']),
                         'height' => $playerData['height'] ?? null,
                         'weight' => $playerData['weight'] ?? null,
                     ]
@@ -158,5 +159,10 @@ final class ImportDataService implements IImportService
             Log::error('Failed to store players: '.$exception->getMessage());
             throw $exception;
         }
+    }
+
+    private function parseDateOfBirth(?string $dateOfBirth): Carbon
+    {
+        return Carbon::parse($dateOfBirth);
     }
 }
