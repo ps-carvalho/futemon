@@ -12,7 +12,7 @@ services:
     restart: unless-stopped
     volumes:
       - .:/var/www/html
-#      - ./docker/app/php.ini:/usr/local/etc/php/conf.d/local.ini
+      - ./docker/app/php.ini:/usr/local/etc/php/conf.d/local.ini
     environment:
       - "PHP_MEMORY_LIMIT=512M"
     depends_on:
