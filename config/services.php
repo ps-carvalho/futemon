@@ -37,4 +37,11 @@ return [
         ],
     ],
 
+    'sportsmonks' => [
+        'key' => env('SPORTSMONKS_API_TOKEN'),
+        'url' => env('SPORTSMONKS_API_URL'),
+        'rate_limit' => env('SPORTSMONKS_API_RATE_LIMIT'),
+        'timeout' => env('SPORTSMONKS_API_TIMEOUT'),
+    ]
+
 ];
