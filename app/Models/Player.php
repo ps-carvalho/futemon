@@ -21,7 +21,7 @@ use Illuminate\Support\Carbon;
  * @property string $display_name
  * @property string $gender
  * @property string $image_path
- * @property string $date_of_birth
+ * @property ?Carbon $date_of_birth
  * @property int $height
  * @property int $weight
  */
@@ -42,6 +42,10 @@ final class Player extends Model
         'date_of_birth',
         'height',
         'weight',
+    ];
+
+    protected $casts = [
+        'date_of_birth' => 'date',
     ];
 
     /**
@@ -89,6 +93,10 @@ final class Player extends Model
 
     public function getAge(): int
     {
-        return Carbon::parse($this->date_of_birth)->age;
+        if ($this->date_of_birth === null) {
+            return 0;
+        }
+
+        return $this->date_of_birth->age;
     }
 }

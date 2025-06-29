@@ -27,7 +27,7 @@ final class ImportSportsMonksDataJob implements ShouldQueue
     public function handle(IImportService $importService): void
     {
         try {
-            $runs = 50;
+            $runs = 100;
             $i = 0;
             while ($i < $runs) {
                 ++$i;

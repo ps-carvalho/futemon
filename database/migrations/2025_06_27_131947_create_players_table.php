@@ -24,7 +24,7 @@ return new class extends Migration
             $table->enum('gender', ['male', 'female'])->default('male');
             $table->integer('height')->nullable();
             $table->integer('weight')->nullable();
-            $table->timestamp('date_of_birth')->index();
+            $table->timestamp('date_of_birth')->nullable()->index();
             $table->string('image_path')->nullable();
             $table->timestamps();
         });

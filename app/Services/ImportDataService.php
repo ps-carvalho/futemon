@@ -75,7 +75,7 @@ final class ImportDataService implements IImportService
             $response = $this->client->get($endpoint, [
                 'query' => [
                     'page' => $page,
-                    'per_page' => 1000,
+                    'per_page' => 25,
                     'include' => 'country;position',
                 ],
             ]);
@@ -161,8 +161,12 @@ final class ImportDataService implements IImportService
         }
     }
 
-    private function parseDateOfBirth(?string $dateOfBirth): Carbon
+    private function parseDateOfBirth(?string $dateOfBirth): ?Carbon
     {
+        if (empty($dateOfBirth)) {
+            return null;
+        }
+
         return Carbon::parse($dateOfBirth);
     }
 }

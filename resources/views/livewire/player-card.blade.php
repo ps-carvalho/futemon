@@ -71,7 +71,7 @@
                                 </div>
                                 <div class="flex justify-between items-center">
                                     <span class="text-gray-600 font-medium">Height :</span>
-                                    <span class="text-gray-800 font-bold">{{ $player->height ? $player->height .'kg' : 'N/A' }} cm</span>
+                                    <span class="text-gray-800 font-bold">{{ $player->height ? $player->height .'cm' : 'N/A' }}</span>
                                 </div>
                                 <div class="flex justify-between items-center">
                                     <span class="text-gray-600 font-medium">Weight :</span>
@@ -80,7 +80,7 @@
                                 <div class="flex justify-between items-center">
                                     <span class="text-gray-600 font-medium">Age:</span>
                                     <span class="text-gray-800 font-bold">
-                                        {{ $player->getAge() }}
+                                        {{ $player->getAge() > 0 ? $player->getAge() : 'N/A' }}
                                     </span>
                                 </div>
 
