@@ -27,8 +27,6 @@ return new class extends Migration
             $table->timestamp('date_of_birth')->nullable();
             $table->string('image_path')->nullable();
             $table->timestamps();
-
-            $table->fullText(['name']);
         });
     }
 
