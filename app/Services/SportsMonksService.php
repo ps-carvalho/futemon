@@ -27,53 +27,65 @@ final class SportsMonksService implements IImportService
 
     private int $timeout;
 
-
-    private function getClient()
+    public function __construct()
     {
-        $this->apiKey = 'LlxQTR2Nse9NGUFDcyBryuNtBJQ31H6q3kGUIQMFMn094VrGEUVTRGyTjIGh';
-        $this->baseUrl = 'https://api.sportmonks.com/v3/football/';
-        $this->timeout = 30;
-        $this->rate_limit = 100;
+        $this->apiKey = config('services.sportsmonks.key');
+        $this->baseUrl = config('services.sportsmonks.url');
+        $this->timeout = (int) config('services.sportsmonks.timeout', 30);
+        $this->rate_limit = (int) config('services.sportsmonks.rate_limit', 100);
+    }
+
+    public function importPlayers(int $page): void
+    {
+        $this->getHttpClient();
+        try {
+            $response = $this->makeApiRequest('players', $page);
+            $players = $this->processApiResponse($response);
+            $this->storePlayers($players);
+        } catch (Exception $exception) {
+            Log::error('Failed to import players: '.$exception->getMessage());
+            throw $exception;
+        }
+    }
+
+    private function getHttpClient(): void
+    {
         $this->client = new Client([
             'base_uri' => $this->baseUrl,
             'headers' => [
                 'Authorization' => $this->apiKey,
                 'Accept' => 'application/json',
             ],
+            'timeout' => $this->timeout,
+            'rate_limit' => $this->rate_limit,
         ]);
     }
 
-    public function importPlayers(int $page): void
-    {
-        try {
-            $this->getClient();
-            $response = $this->makeApiRequest('players', $page);
-            $players = $this->processApiResponse($response);
-            $this->storePlayers($players);
-        } catch (Exception $e) {
-            Log::error('Failed to import players: '.$e->getMessage());
-            throw $e;
-        }
-    }
-
+    /**
+     * @return array<string, mixed>
+     */
     private function makeApiRequest(string $endpoint, int $page): array
     {
         try {
             $response = $this->client->get($endpoint, [
                 'query' => [
-                'page' => $page,
-                'per_page' => 1000,
-                'include' => 'country;position'
-                ]
+                    'page' => $page,
+                    'per_page' => 1000,
+                    'include' => 'country;position',
+                ],
             ]);
 
             return json_decode($response->getBody()->getContents(), true);
-        } catch (GuzzleException $e) {
-            Log::error("API request failed for endpoint {$endpoint}: ".$e->getMessage());
-            throw $e;
+        } catch (GuzzleException $guzzleException) {
+            Log::error(sprintf('API request failed for endpoint %s: ', $endpoint).$guzzleException->getMessage());
+            throw $guzzleException;
         }
     }
 
+    /**
+     * @param  array<string, mixed>  $response
+     * @return array<int, mixed>
+     */
     private function processApiResponse(array $response): array
     {
         if (! isset($response['data'])) {
@@ -83,6 +95,9 @@ final class SportsMonksService implements IImportService
         return $response['data'];
     }
 
+    /**
+     * @param  array<int, mixed>  $players
+     */
     private function storePlayers(array $players): void
     {
         try {
@@ -131,10 +146,10 @@ final class SportsMonksService implements IImportService
             }
 
             DB::commit();
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             DB::rollBack();
-            Log::error('Failed to store players: ' . $e->getMessage());
-            throw $e;
+            Log::error('Failed to store players: '.$exception->getMessage());
+            throw $exception;
         }
     }
 }

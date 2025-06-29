@@ -58,7 +58,6 @@ final class PlayersList extends Component
         $this->nationality = $nationality;
     }
 
-
     public function updatedSearch(): void
     {
         $this->resetPage();

@@ -79,7 +79,9 @@
                                 </div>
                                 <div class="flex justify-between items-center">
                                     <span class="text-gray-600 font-medium">Age:</span>
-                                    <span class="text-gray-800 font-bold">{{ $player->getAge() }}</span>
+                                    <span class="text-gray-800 font-bold">
+                                        {{ $player->getAge() }}
+                                    </span>
                                 </div>
 
                                 <div class="flex justify-between items-center">
