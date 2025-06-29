@@ -17,11 +17,11 @@ final class PlayerRepository implements IPlayerRepository
      *
      * @return LengthAwarePaginator<int, Player>
      */
-    public function searchPlayers(?string $search, int $countryCode = 0, int $perPage = 12, string $orderBy = 'name', string $direction = 'asc'): LengthAwarePaginator
+    public function searchPlayers(?string $search, int $countryId = 0, int $perPage = 12, string $orderBy = 'name', string $direction = 'asc'): LengthAwarePaginator
     {
         return Player::query()
             ->with('country', 'position')
-            ->when($countryCode, fn ($q) => $q->whereHas('country', fn ($subQuery) => $subQuery->where('id', $countryCode)))
+            ->when($countryId, fn ($q) => $q->whereHas('country', fn ($subQuery) => $subQuery->where('id', $countryId)))
             ->when($search, fn ($q) => $q->search($search))
             ->orderBy($orderBy, $direction)
             ->paginate($perPage);
