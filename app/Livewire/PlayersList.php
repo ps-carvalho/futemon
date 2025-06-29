@@ -24,7 +24,7 @@ final class PlayersList extends Component
 
     public string $orderBy = 'name';
 
-    public string $nationality = '';
+    public int $nationality = 0;
 
     public int $perPage = 12;
 
@@ -37,10 +37,26 @@ final class PlayersList extends Component
         'search' => ['except' => ''],
         'direction' => ['except' => 'asc'],
         'orderBy' => ['except' => 'name'],
-        'nationality' => ['except' => ''],
+        'nationality' => ['except' => 0],
         'perPage' => ['except' => 12],
         'page' => ['except' => 1],
     ];
+
+    public function mount(
+        int $page = 1,
+        int $perPage = 12,
+        string $search = '',
+        string $orderBy = 'name',
+        string $direction = 'asc',
+        int $nationality = 0
+    ): void {
+        $this->page = $page;
+        $this->perPage = $perPage;
+        $this->search = $search;
+        $this->orderBy = $orderBy;
+        $this->direction = $direction;
+        $this->nationality = $nationality;
+    }
 
     public function updatedSearch(): void
     {
@@ -69,7 +85,7 @@ final class PlayersList extends Component
 
     public function clearFilters(): void
     {
-        $this->reset(['search', 'nationality']);
+        $this->reset(['search', 'nationality', 'direction']);
         $this->resetPage();
     }
 

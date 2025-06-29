@@ -15,7 +15,6 @@ return [
     | a conventional file to locate the various service credentials.
     |
     */
-
     'postmark' => [
         'token' => env('POSTMARK_TOKEN'),
     ],
@@ -35,6 +34,12 @@ return [
             'bot_user_oauth_token' => env('SLACK_BOT_USER_OAUTH_TOKEN'),
             'channel' => env('SLACK_BOT_USER_DEFAULT_CHANNEL'),
         ],
+    ],
+    'sportsmonks' => [
+        'key' => env('SPORTMONKS_API_TOKEN'),
+        'url' => env('SPORTMONKS_API_URL'),
+        'rate_limit' => env('SPORTMONKS_RATE_LIMIT'),
+        'timeout' => env('SPORTMONKS_TIMEOUT'),
     ],
 
 ];

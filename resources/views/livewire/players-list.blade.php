@@ -2,11 +2,6 @@
 <div class="h-screen overflow-hidden">
 
     <div class="container mx-auto px-4 my-8">
-        <!-- Header -->
-        <div class="text-center mb-8 mt-4">
-            <p class="text-2xl text-white font-extrabold">FUTEMON</p>
-        </div>
-
         <!-- Search and Filter Controls -->
         <div class="bg-white/20 backdrop-blur-sm rounded-2xl p-6 mb-8 shadow-xl">
             <div class="flex flex-col md:flex-row gap-4">
@@ -49,9 +44,9 @@
                         wire:model.live="nationality"
                         class="w-full px-4 py-3 rounded-xl border-2 border-white/30 bg-white/90 text-gray-800 focus:outline-none focus:border-yellow-400 focus:ring-2 focus:ring-yellow-400/50 transition-all"
                     >
-                        <option value="">All Nationalities</option>
+                        <option value="0">All Nationalities</option>
                         @foreach($this->nationalities as $country)
-                            <option value="{{ $country->iso3 }}">{{ $country->name }}</option>
+                            <option value="{{ $country->id }}">{{ $country->name }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -71,7 +66,7 @@
         </div>
 
         <!-- Player Cards Grid -->
-        <div class="pr-2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 max-h-[calc(100vh-420px)] overflow-y-scroll">
+        <div class="pr-2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 max-h-[calc(100vh-420px)] overflow-y-scroll overflow-x-hidden">
             @foreach($this->players as $player)
                 <livewire:player-card :player="$player" :key="$player->id" />
             @endforeach

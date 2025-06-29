@@ -1,14 +1,7 @@
 @extends('layouts.app')
 
-@section('title', $title ?? 'Players')
+@section('title', $title ?? 'Setup')
 
 @section('content')
-    <livewire:players-list
-        :page="(int) $page"
-        :perPage="(int) $perPage"
-        :search="$search"
-        :orderBy="$orderBy"
-        :direction="$direction"
-        :countryCode="$nationality"
-    />
+    <livewire:setup-component />
 @endsection

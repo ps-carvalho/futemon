@@ -15,7 +15,7 @@ interface IPlayerRepository
      *
      * @return LengthAwarePaginator<int, Player>
      */
-    public function searchPlayers(string $search, ?string $countryCode = null, int $perPage = 12, string $orderBy = 'name', string $direction = 'asc'): LengthAwarePaginator;
+    public function searchPlayers(string $search, int $countryId = 0, int $perPage = 12, string $orderBy = 'name', string $direction = 'asc'): LengthAwarePaginator;
 
     public function getById(int $id): ?Player;
 

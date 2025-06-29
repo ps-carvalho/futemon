@@ -30,11 +30,6 @@
                     </div>
                 </div>
             </div>
-
-            <!-- Click to View More -->
-            <div class="mt-4 text-center">
-                <p class="text-sm text-gray-500 italic">Click to view details</p>
-            </div>
         </div>
     </div>
     @if($showModal)
@@ -84,7 +79,9 @@
                                 </div>
                                 <div class="flex justify-between items-center">
                                     <span class="text-gray-600 font-medium">Age:</span>
-                                    <span class="text-gray-800 font-bold">{{ $player->getAge() }}</span>
+                                    <span class="text-gray-800 font-bold">
+                                        {{ $player->getAge() }}
+                                    </span>
                                 </div>
 
                                 <div class="flex justify-between items-center">

@@ -6,4 +6,5 @@ use App\Http\Controllers\PlayersController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [PlayersController::class, 'index'])->name('welcome');
-Route::get('/players/{id}', [PlayersController::class, 'show'])->name('players.show');
+Route::get('/setup', [PlayersController::class, 'setup'])->name('setup');
+Route::get('/players', [PlayersController::class, 'players'])->name('players');
