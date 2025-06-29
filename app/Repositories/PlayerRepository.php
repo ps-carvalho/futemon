@@ -64,6 +64,4 @@ final class PlayerRepository implements IPlayerRepository
                 ->get();
         });
     }
-
-    public function create(): void {}
 }
