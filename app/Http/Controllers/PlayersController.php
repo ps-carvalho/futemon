@@ -5,25 +5,14 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Contracts\Services\IPlayerService;
-use Illuminate\Contracts\View\Factory;
-use Illuminate\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\View\View;
 
 final class PlayersController extends Controller
 {
-    /**
-     * @return Factory|\Illuminate\Contracts\View\View|Application|RedirectResponse|object
-     */
-    public function setup()
+    public function setup(): View
     {
-        $dataPopulated = (bool) Cache::get('data_populated');
-        if ($dataPopulated === true) {
-            return redirect()->route('players');
-        }
-
         return view('welcome');
     }
 

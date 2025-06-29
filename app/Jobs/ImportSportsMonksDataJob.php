@@ -21,18 +21,20 @@ final class ImportSportsMonksDataJob implements ShouldQueue
     use Queueable;
     use SerializesModels;
 
-    public function handle(IImportService $sportsMonksService): void
+    /**
+     * @throws Exception
+     */
+    public function handle(IImportService $importService): void
     {
         try {
             $runs = 50;
             $i = 0;
             while ($i < $runs) {
                 ++$i;
-                $sportsMonksService->importPlayers($i);
+                $importService->importPlayers($i);
             }
 
-            Cache::put('setup_job_completed_sportsmonks_data', true, now()->addMinutes(10));
-            Cache::put('data_populated', true, now()->addMinutes(2400));
+            Cache::put('setup_job_completed', true, now()->addMinutes(10));
 
         } catch (Exception $exception) {
             Log::error('SportsMonks data import failed: '.$exception->getMessage());
