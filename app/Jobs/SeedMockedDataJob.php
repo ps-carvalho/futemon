@@ -32,9 +32,7 @@ final class SeedMockedDataJob implements ShouldQueue
             // Run your database seeder
             Artisan::call('db:seed');
 
-            // Mark job as completed
-            Cache::put('setup_job_completed_mocked_data', true, now()->addMinutes(10));
-            Cache::put('data_populated', true, now()->addMinutes(2400));
+            Cache::put('setup_job_completed', true, now()->addMinutes(10));
 
         } catch (Exception $exception) {
             // Handle error
