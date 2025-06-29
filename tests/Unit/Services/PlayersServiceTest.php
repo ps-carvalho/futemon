@@ -27,7 +27,7 @@ final class PlayersServiceTest extends TestCase
     public function test_search_players(): void
     {
         $search = 'John';
-        $countryCode = 'US';
+        $countryCode = 0;
         $perPage = 12;
         $orderBy = 'name';
         $direction = 'asc';
