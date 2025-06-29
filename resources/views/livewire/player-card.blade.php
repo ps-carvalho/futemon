@@ -30,11 +30,6 @@
                     </div>
                 </div>
             </div>
-
-            <!-- Click to View More -->
-            <div class="mt-4 text-center">
-                <p class="text-sm text-gray-500 italic">Click to view details</p>
-            </div>
         </div>
     </div>
     @if($showModal)

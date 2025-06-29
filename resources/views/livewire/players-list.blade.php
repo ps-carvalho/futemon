@@ -2,11 +2,6 @@
 <div class="h-screen overflow-hidden">
 
     <div class="container mx-auto px-4 my-8">
-        <!-- Header -->
-        <div class="text-center mb-8 mt-4">
-            <p class="text-2xl text-white font-extrabold">FUTEMON</p>
-        </div>
-
         <!-- Search and Filter Controls -->
         <div class="bg-white/20 backdrop-blur-sm rounded-2xl p-6 mb-8 shadow-xl">
             <div class="flex flex-col md:flex-row gap-4">
@@ -71,7 +66,7 @@
         </div>
 
         <!-- Player Cards Grid -->
-        <div class="pr-2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 max-h-[calc(100vh-420px)] overflow-y-scroll">
+        <div class="pr-2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 max-h-[calc(100vh-220px)] overflow-y-scroll">
             @foreach($this->players as $player)
                 <livewire:player-card :player="$player" :key="$player->id" />
             @endforeach
