@@ -10,7 +10,7 @@
         :search="$search"
         :orderBy="$orderBy"
         :direction="$direction"
-        :countryCode="$nationality"
+        :nationality="(int) $nationality"
     />
 
 @endsection

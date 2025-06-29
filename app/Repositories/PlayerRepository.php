@@ -17,11 +17,11 @@ final class PlayerRepository implements IPlayerRepository
      *
      * @return LengthAwarePaginator<int, Player>
      */
-    public function searchPlayers(?string $search, ?string $countryCode = null, int $perPage = 12, string $orderBy = 'name', string $direction = 'asc'): LengthAwarePaginator
+    public function searchPlayers(?string $search, int $countryCode = 0, int $perPage = 12, string $orderBy = 'name', string $direction = 'asc'): LengthAwarePaginator
     {
         return Player::query()
             ->with('country', 'position')
-            ->when($countryCode, fn ($q) => $q->whereHas('country', fn ($subQuery) => $subQuery->where('iso3', $countryCode)))
+            ->when($countryCode, fn ($q) => $q->whereHas('country', fn ($subQuery) => $subQuery->where('id', $countryCode)))
             ->when($search, fn ($q) => $q->search($search))
             ->orderBy($orderBy, $direction)
             ->paginate($perPage);
@@ -41,8 +41,9 @@ final class PlayerRepository implements IPlayerRepository
     {
         return Cache::remember('player_nationalities', 86400, function () {
             return Player::query()
+                ->select('countries.name', 'countries.id')
                 ->join('countries', 'players.country_id', '=', 'countries.id')
-                ->select('countries.name', 'countries.iso3')
+                ->whereNotNull('countries.name')
                 ->distinct()
                 ->orderBy('countries.name')
                 ->get();

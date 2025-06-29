@@ -44,9 +44,9 @@
                         wire:model.live="nationality"
                         class="w-full px-4 py-3 rounded-xl border-2 border-white/30 bg-white/90 text-gray-800 focus:outline-none focus:border-yellow-400 focus:ring-2 focus:ring-yellow-400/50 transition-all"
                     >
-                        <option value="">All Nationalities</option>
+                        <option value="0">All Nationalities</option>
                         @foreach($this->nationalities as $country)
-                            <option value="{{ $country->iso3 }}">{{ $country->name }}</option>
+                            <option value="{{ $country->id }}">{{ $country->name }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -66,7 +66,7 @@
         </div>
 
         <!-- Player Cards Grid -->
-        <div class="pr-2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 max-h-[calc(100vh-220px)] overflow-y-scroll">
+        <div class="pr-2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 max-h-[calc(100vh-420px)] overflow-y-scroll overflow-x-hidden">
             @foreach($this->players as $player)
                 <livewire:player-card :player="$player" :key="$player->id" />
             @endforeach
