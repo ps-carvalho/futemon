@@ -20,7 +20,7 @@ final class PlayersTest extends TestCase
         $response->assertStatus(302);
     }
 
-    public function test_home_route_with_default_parameters(): void
+    public function test_players_route_with_default_parameters(): void
     {
         $response = $this->get('/players');
 
@@ -34,7 +34,7 @@ final class PlayersTest extends TestCase
         ]);
     }
 
-    public function test_home_route_with_custom_parameters(): void
+    public function test_players_route_with_custom_parameters(): void
     {
         $response = $this->get('/players?page=2&perPage=24&nationality=2&orderBy=created_at&direction=desc&search=john');
 
@@ -48,14 +48,14 @@ final class PlayersTest extends TestCase
         ]);
     }
 
-    public function test_home_route_with_search_parameter(): void
+    public function test_players_route_with_search_parameter(): void
     {
         $response = $this->get('/players?search=test');
 
         $response->assertViewHas('search', 'test');
     }
 
-    public function test_home_route_with_pagination_parameters(): void
+    public function test_players_route_with_pagination_parameters(): void
     {
         $response = $this->get('/players?page=3&perPage=48');
 
@@ -65,12 +65,12 @@ final class PlayersTest extends TestCase
         ]);
     }
 
-    public function test_home_route_with_sorting_parameters(): void
+    public function test_players_route_with_sorting_parameters(): void
     {
-        $response = $this->get('/players?orderBy=age&direction=desc');
+        $response = $this->get('/players?orderBy=date_of_birth&direction=desc');
 
         $response->assertViewHas([
-            'orderBy' => 'age',
+            'orderBy' => 'date_of_birth',
             'direction' => 'desc',
         ]);
     }
