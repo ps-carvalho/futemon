@@ -27,7 +27,7 @@ final class ImportDataService implements IImportService
 
     private int $timeout;
 
-    public function __construct(Client $client = null)
+    public function __construct(?Client $client = null)
     {
         $this->apiKey = config('services.sportsmonks.key');
         $this->baseUrl = config('services.sportsmonks.url');

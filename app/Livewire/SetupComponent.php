@@ -7,7 +7,6 @@ namespace App\Livewire;
 use App\Jobs\ImportSportsMonksDataJob;
 use App\Jobs\SeedMockedDataJob;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Log;
 use Illuminate\View\View;
 use Livewire\Component;
 
