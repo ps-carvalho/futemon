@@ -163,7 +163,7 @@ final class ImportDataService implements IImportService
 
     private function parseDateOfBirth(?string $dateOfBirth): ?Carbon
     {
-        if (empty($dateOfBirth)) {
+        if ($dateOfBirth === null || $dateOfBirth === '' || $dateOfBirth === '0') {
             return null;
         }
 
