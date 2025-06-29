@@ -15,9 +15,9 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use RuntimeException;
 
-final class SportsMonksService implements IImportService
+final class ImportDataService implements IImportService
 {
-    private Client $client;
+    public Client $client;
 
     private string $apiKey;
 
@@ -27,30 +27,14 @@ final class SportsMonksService implements IImportService
 
     private int $timeout;
 
-    public function __construct()
+    public function __construct(Client $client = null)
     {
         $this->apiKey = config('services.sportsmonks.key');
         $this->baseUrl = config('services.sportsmonks.url');
         $this->timeout = (int) config('services.sportsmonks.timeout', 30);
         $this->rate_limit = (int) config('services.sportsmonks.rate_limit', 100);
-    }
 
-    public function importPlayers(int $page): void
-    {
-        $this->getHttpClient();
-        try {
-            $response = $this->makeApiRequest('players', $page);
-            $players = $this->processApiResponse($response);
-            $this->storePlayers($players);
-        } catch (Exception $exception) {
-            Log::error('Failed to import players: '.$exception->getMessage());
-            throw $exception;
-        }
-    }
-
-    private function getHttpClient(): void
-    {
-        $this->client = new Client([
+        $this->client = $client ?? new Client([
             'base_uri' => $this->baseUrl,
             'headers' => [
                 'Authorization' => $this->apiKey,
@@ -62,7 +46,27 @@ final class SportsMonksService implements IImportService
     }
 
     /**
+     * @throws GuzzleException
+     * @throws Exception
+     */
+    public function importPlayers(int $page): void
+    {
+        $endpoint = 'players';
+
+        try {
+            $response = $this->makeApiRequest($endpoint, $page);
+            $players = $this->processApiResponse($response);
+            $this->storePlayers($players);
+        } catch (Exception $exception) {
+            Log::error('Failed to import players: '.$exception->getMessage());
+            throw $exception;
+        }
+    }
+
+    /**
      * @return array<string, mixed>
+     *
+     * @throws GuzzleException
      */
     private function makeApiRequest(string $endpoint, int $page): array
     {
@@ -97,6 +101,8 @@ final class SportsMonksService implements IImportService
 
     /**
      * @param  array<int, mixed>  $players
+     *
+     * @throws Exception
      */
     private function storePlayers(array $players): void
     {
