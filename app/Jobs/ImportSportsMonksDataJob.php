@@ -35,6 +35,7 @@ final class ImportSportsMonksDataJob implements ShouldQueue
             }
 
             Cache::put('setup_job_completed', true, now()->addMinutes(10));
+            Cache::put('app_setup_is_completed', true);
 
         } catch (Exception $exception) {
             Log::error('SportsMonks data import failed: '.$exception->getMessage());

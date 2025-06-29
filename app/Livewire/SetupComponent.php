@@ -49,6 +49,7 @@ final class SetupComponent extends Component
         $jobKey = 'setup_job_completed';
         if ($this->isJobCompleted($jobKey)) {
             Cache::forget('setup_job_completed');
+            Cache::put('app_setup_is_completed', true);
             $this->redirect('/players');
         }
     }
