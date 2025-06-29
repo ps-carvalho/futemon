@@ -5,12 +5,14 @@ declare(strict_types=1);
 namespace App\Models;
 
 use Database\Factories\PlayerFactory;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Carbon;
 
 /**
- * @property-read int $id
+ * @property int $id
  * @property-read int $imported_id
  * @property-read int $position_id
  * @property-read int $country_id
@@ -61,5 +63,32 @@ final class Player extends Model
     public function position(): BelongsTo
     {
         return $this->belongsTo(PlayerPosition::class);
+    }
+
+    /**
+     * @param  Builder<Player>  $query
+     * @return Builder<Player>
+     */
+    public function scopeSearch(Builder $query, string $term): Builder
+    {
+        collect(explode(' ', $term))
+            ->each(fn ($word) => $query->whereRaw('LOWER(name) LIKE LOWER(?)', [sprintf('%%%s%%', $word)]));
+
+        return $query;
+    }
+
+    public function getDisplayNationality(): string
+    {
+        return $this->country()->first()->name;
+    }
+
+    public function getDisplayPosition(): string
+    {
+        return $this->position()->first()->name;
+    }
+
+    public function getAge(): int
+    {
+        return Carbon::parse($this->date_of_birth)->age;
     }
 }
