@@ -2,7 +2,8 @@
 
 declare(strict_types=1);
 
-use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PlayersController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', [HomeController::class, 'index'])->name('welcome');
+Route::get('/', [PlayersController::class, 'index'])->name('welcome');
+Route::get('/players/{id}', [PlayersController::class, 'show'])->name('players.show');
