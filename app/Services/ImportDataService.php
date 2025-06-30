@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Services;
 
 use App\Contracts\Services\IImportService;
+use App\DTOs\PlayerImportDTO;
 use App\Models\Country;
 use App\Models\Player;
 use App\Models\PlayerPosition;
@@ -89,7 +90,7 @@ final class ImportDataService implements IImportService
 
     /**
      * @param  array<string, mixed>  $response
-     * @return array<int, mixed>
+     * @return array<int, PlayerImportDTO>
      */
     private function processApiResponse(array $response): array
     {
@@ -97,11 +98,14 @@ final class ImportDataService implements IImportService
             throw new RuntimeException('Invalid API response format');
         }
 
-        return $response['data'];
+        return array_map(
+            fn (array $playerData): PlayerImportDTO => PlayerImportDTO::fromApiData($playerData),
+            $response['data']
+        );
     }
 
     /**
-     * @param  array<int, mixed>  $players
+     * @param  array<int, PlayerImportDTO>  $players
      *
      * @throws Exception
      */
@@ -113,42 +117,46 @@ final class ImportDataService implements IImportService
             foreach ($players as $playerData) {
                 $country = Country::firstOrCreate(
                     [
-                        'imported_id' => $playerData['country']['id'],
-                        'name' => $playerData['country']['name'] ?? null,
-                        'official_name' => $playerData['country']['official_name'] ?? null,
-                        'fifa_name' => $playerData['country']['fifa_name'] ?? null,
-                        'iso2' => $playerData['country']['iso2'] ?? null,
-                        'iso3' => $playerData['country']['iso3'] ?? null,
-                        'longitude' => $playerData['country']['longitude'] ?? null,
-                        'latitude' => $playerData['country']['latitude'] ?? null,
+                        'imported_id' => $playerData->country->imported_id,
+                        'name' => $playerData->country->name,
+                        'official_name' => $playerData->country->official_name,
+                        'fifa_name' => $playerData->country->fifa_name,
+                        'iso2' => $playerData->country->iso2,
+                        'iso3' => $playerData->country->iso3,
+                        'longitude' => $playerData->country->longitude,
+                        'latitude' => $playerData->country->latitude,
                     ]
                 );
-                if (isset($playerData['position']['id'])) {
+
+                $position = null;
+                if ($playerData->position !== null) {
                     $position = PlayerPosition::firstOrCreate(
                         [
-                            'imported_id' => $playerData['position']['id'],
-                            'name' => $playerData['position']['name'] ?? null,
-                            'code' => $playerData['position']['code'] ?? null,
-                            'developer_name' => $playerData['position']['developer_name'] ?? null,
-                            'model_type' => $playerData['position']['model_type'] ?? null,
-                            'stat_group' => $playerData['position']['stat_group'] ?? null,
+                            'imported_id' => $playerData->position->imported_id,
+                            'name' => $playerData->position->name,
+                            'code' => $playerData->position->code,
+                            'developer_name' => $playerData->position->developer_name,
+                            'model_type' => $playerData->position->model_type,
+                            'stat_group' => $playerData->position->stat_group,
                         ]
                     );
                 }
 
                 Player::updateOrCreate(
                     [
-                        'imported_id' => $playerData['id'],
-                        'name' => $playerData['name'],
-                        'common_name' => $playerData['common_name'],
-                        'gender' => $playerData['gender'],
-                        'display_name' => $playerData['display_name'],
-                        'image_path' => $playerData['image_path'] ?? null,
+                        'imported_id' => $playerData->imported_id,
+                    ],
+                    [
+                        'name' => $playerData->name,
+                        'common_name' => $playerData->common_name,
+                        'gender' => $playerData->gender,
+                        'display_name' => $playerData->display_name,
+                        'image_path' => $playerData->image_path,
                         'country_id' => $country->id,
-                        'position_id' => $position->id ?? null,
-                        'date_of_birth' => $this->parseDateOfBirth($playerData['date_of_birth']),
-                        'height' => $playerData['height'] ?? null,
-                        'weight' => $playerData['weight'] ?? null,
+                        'position_id' => $position?->id,
+                        'date_of_birth' => $this->parseDateOfBirth($playerData->date_of_birth),
+                        'height' => $playerData->height,
+                        'weight' => $playerData->weight,
                     ]
                 );
             }
