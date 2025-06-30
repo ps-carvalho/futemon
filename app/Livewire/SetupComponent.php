@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Livewire;
 
+use App\Contracts\Services\IJobStatusService;
 use App\Jobs\ImportSportsMonksDataJob;
 use App\Jobs\SeedMockedDataJob;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\View\View;
 use Livewire\Component;
 
@@ -46,10 +46,7 @@ final class SetupComponent extends Component
 
     public function checkJobStatus(): void
     {
-        $jobKey = 'setup_job_completed';
-        if ($this->isJobCompleted($jobKey)) {
-            Cache::forget('setup_job_completed');
-            Cache::put('app_setup_is_completed', true);
+        if ($this->isJobCompleted()) {
             $this->redirect('/players');
         }
     }
@@ -59,8 +56,14 @@ final class SetupComponent extends Component
         return view('livewire.setup-component');
     }
 
-    private function isJobCompleted(string $jobKey): bool
+    private function isJobCompleted(): bool
     {
-        return Cache::has($jobKey);
+        $completed = app(IJobStatusService::class)->isJobCompleted();
+
+        if (! $completed) {
+            return false;
+        }
+        app(IJobStatusService::class)->markAppSetupCompleted();
+        return true;
     }
 }

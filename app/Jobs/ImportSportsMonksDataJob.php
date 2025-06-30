@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace App\Jobs;
 
 use App\Contracts\Services\IImportService;
+use App\Contracts\Services\IJobStatusService;
 use Exception;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
 
 final class ImportSportsMonksDataJob implements ShouldQueue
@@ -24,7 +24,7 @@ final class ImportSportsMonksDataJob implements ShouldQueue
     /**
      * @throws Exception
      */
-    public function handle(IImportService $importService): void
+    public function handle(IImportService $importService, IJobStatusService $jobStatusService): void
     {
         try {
             $runs = 100;
@@ -34,8 +34,7 @@ final class ImportSportsMonksDataJob implements ShouldQueue
                 $importService->importPlayers($i);
             }
 
-            Cache::put('setup_job_completed', true, now()->addMinutes(10));
-            Cache::put('app_setup_is_completed', true);
+            $jobStatusService->markJobCompleted();
 
         } catch (Exception $exception) {
             Log::error('SportsMonks data import failed: '.$exception->getMessage());
