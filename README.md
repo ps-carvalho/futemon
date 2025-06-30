@@ -240,7 +240,7 @@ FUTEMON is a modern web application built with Laravel 12 that allows users to b
     LOG_LEVEL=debug
     
     DB_CONNECTION=pgsql
-    DB_HOST=postgres
+    DB_HOST=127.0.0.1
     DB_PORT=5432
     DB_DATABASE=futemon
     DB_USERNAME=username
@@ -262,7 +262,7 @@ FUTEMON is a modern web application built with Laravel 12 that allows users to b
     #MEMCACHED_HOST=127.0.0.1
     
     REDIS_CLIENT=phpredis
-    REDIS_HOST=redis
+    REDIS_HOST=127.0.0.1
     REDIS_PASSWORD=null
     REDIS_PORT=6379
     
