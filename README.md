@@ -12,8 +12,6 @@ FUTEMON is a modern web application built with Laravel 12 that allows users to b
 - **Real-time Interaction**: Livewire-powered components for a seamless user experience
 - **Background Processing**: Efficient data import via queue jobs
 - **Performance Optimized**: Utilizes caching, indexing, and other performance enhancements
-- **Docker Ready**: Containerized development and production environments
-- **CI/CD Pipeline**: Automated testing and deployment with GitHub Actions
 
 ## Technology Stack
 
@@ -171,11 +169,11 @@ FUTEMON is a modern web application built with Laravel 12 that allows users to b
    ```
 9. **Run the app**
    ```bash
+   
    docker compose exec app composer dev
-   
-   Choose you import flow from the welcome UI and import you data accordingly.
    ```
-   
+- [http://localhost:8000](http://localhost:8000) -  Choose you import flow from the welcome UI and import you data accordingly.
+
 
 10. **Run tests**
 
@@ -321,6 +319,7 @@ FUTEMON is a modern web application built with Laravel 12 that allows users to b
    ```bash
    composer dev
    
+- [http://localhost:8000](http://localhost:8000)
    Choose you import flow from the welcome UI and import you data accordingly.
    ```
 
