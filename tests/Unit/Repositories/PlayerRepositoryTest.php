@@ -6,15 +6,12 @@ namespace Tests\Unit\Repositories;
 
 use App\Contracts\Repositories\IPlayerRepository;
 use App\Models\Player;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Mockery;
 use Tests\TestCase;
 
 final class PlayerRepositoryTest extends TestCase
 {
-    use RefreshDatabase;
-
     private IPlayerRepository $playerRepository;
 
     protected function setUp(): void
