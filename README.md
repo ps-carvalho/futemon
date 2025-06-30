@@ -7,10 +7,10 @@ FUTEMON is a modern web application built with Laravel 12 that allows users to b
 ### Key Features
 
 - **Player Directory**: Browse through an extensive database of football players
-- **Advanced Search**: Search for players by name, nationality, position, and more
+- **Advanced Search**: Search for players by name, filter by nationality
 - **Responsive Design**: Fully responsive UI built with Tailwind CSS
 - **Real-time Interaction**: Livewire-powered components for a seamless user experience
-- **Background Processing**: Efficient data import via queue jobs
+- **Background Processing**: Efficient data import
 - **Performance Optimized**: Utilizes caching, indexing, and other performance enhancements
 
 ## Technology Stack
