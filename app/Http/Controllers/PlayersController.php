@@ -26,12 +26,10 @@ final class PlayersController extends Controller
         return view('welcome');
     }
 
-    public function index(IPlayerService $playerService): RedirectResponse
+    public function index(): RedirectResponse
     {
-        $players = $playerService->searchPlayers(
-            search: '',
-        );
-        if ($players->count() > 0) {
+        $appReady = Cache::get('app_setup_is_completed', false);
+        if ($appReady) {
             return redirect()->route('players');
         }
 
