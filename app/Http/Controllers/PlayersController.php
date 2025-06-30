@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use App\Contracts\Services\IPlayerService;
+use App\Constants\CountryConstants;
+use App\Constants\PlayerConstants;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
@@ -49,10 +50,10 @@ final class PlayersController extends Controller
 
         return view('players', [
             'page' => $request->query->get('page') ?? 1,
-            'perPage' => $request->query->get('perPage') ?? 12,
-            'nationality' => $request->query->get('nationality') ?? 0,
-            'orderBy' => $request->query->get('orderBy') ?? 'name',
-            'direction' => $request->query->get('direction') ?? 'asc',
+            'perPage' => $request->query->get('perPage') ?? PlayerConstants::DEFAULT_PER_PAGE,
+            'nationality' => $request->query->get('nationality') ?? CountryConstants::DEFAULT_ID,
+            'orderBy' => $request->query->get('orderBy') ?? PlayerConstants::DEFAULT_ORDER_BY,
+            'direction' => $request->query->get('direction') ?? PlayerConstants::DEFAULT_DIRECTION,
             'search' => $request->query->get('search') ?? '',
         ]);
     }

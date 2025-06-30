@@ -177,8 +177,6 @@ FUTEMON is a modern web application built with Laravel 12 that allows users to b
 10. **Run tests**
 
    ```bash
-   Create a new database called futemon_test before running your tests
-   
    docker compose exec app composer test
    docker compose exec app composer test-parallel
    docker compose exec app composer test-dry-run
@@ -324,8 +322,6 @@ FUTEMON is a modern web application built with Laravel 12 that allows users to b
 
 10. **Run tests**
    ```bash
-   Create a new database called futemon_test before running your tests
-
    composer test
    composer test-parallel
    composer test-dry-run
