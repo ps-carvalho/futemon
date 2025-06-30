@@ -22,7 +22,6 @@ FUTEMON is a modern web application built with Laravel 12 that allows users to b
 - **Cache**: Redis
 - **API**: Sportmonks Football API
 - **Containerization**: Docker & Docker Compose
-- **CI/CD**: GitHub Actions
 
 ## Installation
 
