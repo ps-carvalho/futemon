@@ -7,6 +7,7 @@ namespace App\Livewire;
 use App\Contracts\Services\IJobStatusService;
 use App\Jobs\ImportSportsMonksDataJob;
 use App\Jobs\SeedMockedDataJob;
+use Exception;
 use Illuminate\View\View;
 use Livewire\Component;
 
@@ -18,30 +19,42 @@ final class SetupComponent extends Component
 
     public function seedWithMockedData(): void
     {
-        $this->isProcessing = true;
-        $this->processingMessage = 'Seeding with mocked data...';
+        try {
 
-        // Dispatch the job
-        SeedMockedDataJob::dispatch()
-            ->onQueue('default')
-            ->afterCommit();
+            $this->isProcessing = true;
+            $this->processingMessage = 'Seeding with mocked data...';
 
-        // Poll for job completion
-        $this->dispatch('start-job-polling');
+            // Dispatch the job
+            SeedMockedDataJob::dispatch()
+                ->onQueue('default')
+                ->afterCommit();
+
+            // Poll for job completion
+            $this->dispatch('start-job-polling');
+        } catch (Exception $exception) {
+            $this->isProcessing = false;
+            $this->addError('general', 'Failed to start seeding process: '.$exception->getMessage());
+        }
+
     }
 
     public function seedWithSportsMonksData(): void
     {
-        $this->isProcessing = true;
-        $this->processingMessage = 'Importing data from SportsMonks API...';
+        try {
+            $this->isProcessing = true;
+            $this->processingMessage = 'Importing data from SportsMonks API...';
 
-        // Dispatch the job
-        ImportSportsMonksDataJob::dispatch()
-            ->onQueue('default')
-            ->afterCommit();
+            // Dispatch the job
+            ImportSportsMonksDataJob::dispatch()
+                ->onQueue('default')
+                ->afterCommit();
 
-        // Poll for job completion
-        $this->dispatch('start-job-polling');
+            // Poll for job completion
+            $this->dispatch('start-job-polling');
+        } catch (Exception $exception) {
+            $this->isProcessing = false;
+            $this->addError('general', 'Failed to start seeding process: '.$exception->getMessage());
+        }
     }
 
     public function checkJobStatus(): void
