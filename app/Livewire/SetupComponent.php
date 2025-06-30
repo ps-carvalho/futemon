@@ -63,7 +63,9 @@ final class SetupComponent extends Component
         if (! $completed) {
             return false;
         }
+
         app(IJobStatusService::class)->markAppSetupCompleted();
+
         return true;
     }
 }

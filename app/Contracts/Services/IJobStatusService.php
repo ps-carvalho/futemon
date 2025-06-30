@@ -11,5 +11,6 @@ interface IJobStatusService
     public function isJobCompleted(): bool;
 
     public function markAppSetupCompleted(): void;
+
     public function isSetupCompleted(): bool;
 }
