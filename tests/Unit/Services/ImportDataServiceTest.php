@@ -51,12 +51,29 @@ final class ImportDataServiceTest extends TestCase
                     'common_name' => 'Test Player',
                     'gender' => 'male',
                     'display_name' => 'Test Player',
-                    'date_of_birth' => '1990-01-01', // Add this missing field
-                    'height' => 180, // Optional: Add height
-                    'weight' => 75,  // Optional: Add weight
-                    'image_path' => null, // Optional: Add image_path
-                    'country' => ['id' => 1, 'name' => 'Test Country'],
-                    'position' => ['id' => 1, 'name' => 'Test Position'],
+                    'date_of_birth' => '1990-01-01',
+                    'height' => 180,
+                    'weight' => 75,
+                    'image_path' => null,
+                    'country' => [
+                        'id' => 1,
+                        'name' => 'Test Country',
+                        'official_name' => 'Test Country',
+                        'iso2' => 'EN',
+                        'iso3' => 'ENG',
+                        'latitude' => '51.507222',
+                        'longitude' => '-0.1275',
+                        'fifa_name' => 'Test Country',
+                        'image_path' => 'https://cdn.sportmonks.com/images/flags/16x11/eng.png',
+                    ],
+                    'position' => [
+                        'id' => 1,
+                        'name' => 'Test Position',
+                        'code' => 'GK',
+                        'developer_name' => 'Test Position',
+                        'model_type' => 'position',
+                        'stat_group' => null,
+                    ],
                 ],
             ],
         ];
