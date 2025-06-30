@@ -13,8 +13,8 @@ final class CountryImportDto
         public ?string $fifa_name,
         public ?string $iso2,
         public ?string $iso3,
-        public ?float $longitude,
-        public ?float $latitude,
+        public float $longitude,
+        public float $latitude,
         public string $image_path,
     ) {}
 
@@ -26,13 +26,22 @@ final class CountryImportDto
         return new self(
             imported_id: $data['id'],
             name: $data['name'],
-            official_name: $data['official_name'],
-            fifa_name: $data['fifa_name'],
-            iso2: $data['iso2'],
+            official_name: $data['official_name'] ?? null,
+            fifa_name: $data['fifa_name'] ?? null,
+            iso2: $data['iso2'] ?? null,
             iso3: $data['iso3'] ?? null,
-            longitude: $data['longitude'] ?? 0.0,
-            latitude: $data['latitude'] ?? 0.0,
+            longitude: self::toFloat($data['longitude']),
+            latitude: self::toFloat($data['latitude']),
             image_path: $data['image_path'] ?? null,
         );
+    }
+
+    private static function toFloat(?string $value): float
+    {
+        if ($value === '' || $value === null) {
+            return 0.0;
+        }
+
+        return (float) $value;
     }
 }
