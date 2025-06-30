@@ -210,6 +210,7 @@ final class ImportDataService implements IImportService
         if (! isset($response['data'])) {
             throw new RuntimeException('Invalid API response format');
         }
+
         return array_map(
             fn (array $playerData): PlayerImportDTO => PlayerImportDTO::fromApiData($playerData),
             $response['data']

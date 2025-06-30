@@ -57,5 +57,8 @@
         "increment_style": {
             "style": "pre"
         }
-    }
+    },
+    "exclude": [
+        "app/DTOs"
+    ]
 }

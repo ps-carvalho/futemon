@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace App\DTOs;
 
-final class PositionImportDTO
+
+class PositionImportDTO
 {
     public function __construct(
         public int $imported_id,

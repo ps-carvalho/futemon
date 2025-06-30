@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\DTOs;
 
-final class CountryImportDto
+class CountryImportDto
 {
     public function __construct(
         public int $imported_id,
@@ -15,7 +15,7 @@ final class CountryImportDto
         public ?string $iso3,
         public float $longitude,
         public float $latitude,
-        public string $image_path,
+        public ?string $image_path,
     ) {}
 
     /**
