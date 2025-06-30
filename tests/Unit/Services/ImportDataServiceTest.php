@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Services;
+namespace Tests\Unit\Services;
 
 use App\DTOs\CountryImportDto;
 use App\DTOs\PlayerImportDTO;
