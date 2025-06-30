@@ -81,16 +81,6 @@ final class Player extends Model
         return $query;
     }
 
-    public function getDisplayNationality(): string
-    {
-        return $this->country()->first()->name;
-    }
-
-    public function getDisplayPosition(): string
-    {
-        return $this->position()->first()->name;
-    }
-
     public function getAge(): int
     {
         if ($this->date_of_birth === null) {
