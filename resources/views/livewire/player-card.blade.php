@@ -7,7 +7,7 @@
         <!-- Card Header -->
         <div class="bg-gradient-to-r from-yellow-400 to-orange-500 p-4 relative">
             <div class="absolute top-2 right-2  text-white text-xs font-bold px-2 py-1 rounded-full">
-                {{ $player->position->name }}
+                {{ $player->position?->name }}
             </div>
         </div>
 
@@ -43,7 +43,7 @@
                         <div
                             class="bg-gradient-to-r from-yellow-400 to-orange-500 p-4 -mx-6 -mt-6 rounded-t-lg relative">
                             <div class="absolute top-2 right-2 text-white text-xs font-bold px-2 py-1 rounded-full">
-                                {{ $player->position->name }}
+                                {{ $player->position?->name }}
                             </div>
                         </div>
 
@@ -71,16 +71,16 @@
                                 </div>
                                 <div class="flex justify-between items-center">
                                     <span class="text-gray-600 font-medium">Height :</span>
-                                    <span class="text-gray-800 font-bold">{{ $player->height }} cm</span>
+                                    <span class="text-gray-800 font-bold">{{ $player->height ? $player->height .'cm' : 'N/A' }}</span>
                                 </div>
                                 <div class="flex justify-between items-center">
                                     <span class="text-gray-600 font-medium">Weight :</span>
-                                    <span class="text-gray-800 font-bold">{{ $player->weight }} kg</span>
+                                    <span class="text-gray-800 font-bold">{{ $player->weight ? $player->weight .'kg' : 'N/A' }}</span>
                                 </div>
                                 <div class="flex justify-between items-center">
                                     <span class="text-gray-600 font-medium">Age:</span>
                                     <span class="text-gray-800 font-bold">
-                                        {{ $player->getAge() }}
+                                        {{ $player->getAge() > 0 ? $player->getAge() : 'N/A' }}
                                     </span>
                                 </div>
 
@@ -91,7 +91,7 @@
 
                                 <div class="flex justify-between items-center">
                                     <span class="text-gray-600 font-medium">Position:</span>
-                                    <span class="text-gray-800 font-bold">{{ $player->position->name }}</span>
+                                    <span class="text-gray-800 font-bold">{{ $player->position?->name }}</span>
                                 </div>
                             </div>
                         </div>

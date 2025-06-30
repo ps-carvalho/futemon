@@ -16,15 +16,15 @@ return new class extends Migration
         Schema::create('players', function (Blueprint $table) {
             $table->id();
             $table->integer('imported_id')->index();
-            $table->integer('position_id')->index();
+            $table->integer('position_id')->nullable()->index();
             $table->integer('country_id')->index();
             $table->string('name')->index();
-            $table->string('common_name')->index();
-            $table->string('display_name')->index();
+            $table->string('common_name');
+            $table->string('display_name');
             $table->enum('gender', ['male', 'female'])->default('male');
             $table->integer('height')->nullable();
             $table->integer('weight')->nullable();
-            $table->timestamp('date_of_birth')->nullable();
+            $table->timestamp('date_of_birth')->nullable()->index();
             $table->string('image_path')->nullable();
             $table->timestamps();
         });

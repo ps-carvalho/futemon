@@ -23,6 +23,7 @@ final class PlayerRepository implements IPlayerRepository
             ->with('country', 'position')
             ->when($countryId, fn ($q) => $q->whereHas('country', fn ($subQuery) => $subQuery->where('id', $countryId)))
             ->when($search, fn ($q) => $q->search($search))
+            ->whereNotNull('date_of_birth')
             ->orderBy($orderBy, $direction)
             ->paginate($perPage);
     }
@@ -64,6 +65,4 @@ final class PlayerRepository implements IPlayerRepository
                 ->get();
         });
     }
-
-    public function create(): void {}
 }

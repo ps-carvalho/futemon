@@ -13,17 +13,17 @@ use Illuminate\Support\Carbon;
 
 /**
  * @property int $id
- * @property-read int $imported_id
- * @property-read int $position_id
- * @property-read int $country_id
- * @property-read string $name
- * @property-read string $common_name
- * @property-read string $display_name
- * @property-read string $gender
- * @property-read string $image_path
- * @property-read string $date_of_birth
- * @property-read int $height
- * @property-read int $weight
+ * @property int $imported_id
+ * @property ?int $position_id
+ * @property int $country_id
+ * @property string $name
+ * @property string $common_name
+ * @property string $display_name
+ * @property string $gender
+ * @property string $image_path
+ * @property ?Carbon $date_of_birth
+ * @property int $height
+ * @property int $weight
  */
 final class Player extends Model
 {
@@ -42,6 +42,10 @@ final class Player extends Model
         'date_of_birth',
         'height',
         'weight',
+    ];
+
+    protected $casts = [
+        'date_of_birth' => 'date',
     ];
 
     /**
@@ -77,18 +81,12 @@ final class Player extends Model
         return $query;
     }
 
-    public function getDisplayNationality(): string
-    {
-        return $this->country()->first()->name;
-    }
-
-    public function getDisplayPosition(): string
-    {
-        return $this->position()->first()->name;
-    }
-
     public function getAge(): int
     {
-        return Carbon::parse($this->date_of_birth)->age;
+        if ($this->date_of_birth === null) {
+            return 0;
+        }
+
+        return $this->date_of_birth->age;
     }
 }

@@ -32,6 +32,4 @@ final class PlayersService implements IPlayerService
     {
         return $this->playerRepository->getById($id);
     }
-
-    public function create(): void {}
 }

@@ -28,6 +28,4 @@ interface IPlayerRepository
      * @return Collection<int, object>
      */
     public function getPositions(): Collection;
-
-    public function create(): void;
 }

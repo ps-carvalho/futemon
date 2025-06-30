@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Livewire;
 
+use App\Contracts\Services\IJobStatusService;
 use App\Jobs\ImportSportsMonksDataJob;
 use App\Jobs\SeedMockedDataJob;
-use Illuminate\Support\Facades\Session;
 use Illuminate\View\View;
 use Livewire\Component;
 
@@ -26,10 +26,6 @@ final class SetupComponent extends Component
             ->onQueue('default')
             ->afterCommit();
 
-        // Store job info in session to track completion
-        Session::put('setup_job_type', 'mocked_data');
-        Session::put('setup_job_started', true);
-
         // Poll for job completion
         $this->dispatch('start-job-polling');
     }
@@ -44,19 +40,13 @@ final class SetupComponent extends Component
             ->onQueue('default')
             ->afterCommit();
 
-        // Store job info in session to track completion
-        Session::put('setup_job_type', 'sportsmonks_data');
-        Session::put('setup_job_started', true);
-
         // Poll for job completion
         $this->dispatch('start-job-polling');
     }
 
     public function checkJobStatus(): void
     {
-        $jobType = Session::get('setup_job_type');
-        if ($jobType && $this->isJobCompleted($jobType)) {
-            Session::forget(['setup_job_type', 'setup_job_started']);
+        if ($this->isJobCompleted()) {
             $this->redirect('/players');
         }
     }
@@ -66,8 +56,16 @@ final class SetupComponent extends Component
         return view('livewire.setup-component');
     }
 
-    private function isJobCompleted(string $jobType): bool
+    private function isJobCompleted(): bool
     {
-        return cache()->has('setup_job_completed_'.$jobType);
+        $completed = app(IJobStatusService::class)->isJobCompleted();
+
+        if (! $completed) {
+            return false;
+        }
+
+        app(IJobStatusService::class)->markAppSetupCompleted();
+
+        return true;
     }
 }

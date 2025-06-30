@@ -10,7 +10,6 @@ use Illuminate\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\View\View;
 
 final class PlayersController extends Controller
 {
@@ -19,8 +18,8 @@ final class PlayersController extends Controller
      */
     public function setup()
     {
-        $dataPopulated = (bool) Cache::get('data_populated');
-        if ($dataPopulated === true) {
+        $appReady = Cache::get('app_setup_is_completed', false);
+        if ($appReady) {
             return redirect()->route('players');
         }
 
@@ -40,8 +39,16 @@ final class PlayersController extends Controller
 
     }
 
-    public function players(Request $request): View
+    /**
+     * @return Factory|\Illuminate\Contracts\View\View|Application|RedirectResponse|object
+     */
+    public function players(Request $request)
     {
+        $appReady = Cache::get('app_setup_is_completed', false);
+        if ($appReady === false) {
+            return redirect()->route('setup');
+        }
+
         return view('players', [
             'page' => $request->query->get('page') ?? 1,
             'perPage' => $request->query->get('perPage') ?? 12,
