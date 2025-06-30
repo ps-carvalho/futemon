@@ -89,6 +89,9 @@ FUTEMON is a modern web application built with Laravel 12 that allows users to b
    SPORTMONKS_API_TOKEN=your_api_token_here
    SPORTMONKS_RATE_LIMIT=100
    SPORTMONKS_TIMEOUT=30
+   SPORTSMONKS_MAX_RETRIES=3
+   SPORTSMONKS_BASE_DELAY_MS=1000
+   SPORTSMONKS_BACKOFF_MULTIPLIER=2.0   
 
    # Cache TTL Configuration
    CACHE_PLAYERS_TTL=3600
