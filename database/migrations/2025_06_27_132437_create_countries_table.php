@@ -21,8 +21,8 @@ return new class extends Migration
             $table->string('fifa_name')->nullable();
             $table->string('iso2')->nullable();
             $table->string('iso3')->nullable();
-            $table->string('latitude')->nullable();
-            $table->string('longitude')->nullable();
+            $table->float('latitude')->nullable();
+            $table->float('longitude')->nullable();
             $table->string('image_path')->nullable();
             $table->timestamps();
         });

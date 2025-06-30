@@ -31,9 +31,9 @@ final class SetupComponent extends Component
 
             // Poll for job completion
             $this->dispatch('start-job-polling');
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $this->isProcessing = false;
-            $this->addError('general', 'Failed to start seeding process: '.$e->getMessage());
+            $this->addError('general', 'Failed to start seeding process: '.$exception->getMessage());
         }
 
     }
@@ -51,9 +51,9 @@ final class SetupComponent extends Component
 
             // Poll for job completion
             $this->dispatch('start-job-polling');
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $this->isProcessing = false;
-            $this->addError('general', 'Failed to start seeding process: '.$e->getMessage());
+            $this->addError('general', 'Failed to start seeding process: '.$exception->getMessage());
         }
     }
 

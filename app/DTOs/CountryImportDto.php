@@ -13,8 +13,8 @@ final class CountryImportDto
         public ?string $fifa_name,
         public ?string $iso2,
         public ?string $iso3,
-        public string $longitude,
-        public string $latitude,
+        public ?float $longitude,
+        public ?float $latitude,
         public string $image_path,
     ) {}
 
@@ -30,8 +30,8 @@ final class CountryImportDto
             fifa_name: $data['fifa_name'],
             iso2: $data['iso2'],
             iso3: $data['iso3'] ?? null,
-            longitude: $data['longitude'] ?? null,
-            latitude: $data['latitude'] ?? null,
+            longitude: $data['longitude'] ?? 0.0,
+            latitude: $data['latitude'] ?? 0.0,
             image_path: $data['image_path'] ?? null,
         );
     }
