@@ -8,8 +8,8 @@ class CountryImportDto
 {
     public function __construct(
         public int $imported_id,
-        public string $name,
-        public string $official_name,
+        public ?string $name,
+        public ?string $official_name,
         public ?string $fifa_name,
         public ?string $iso2,
         public ?string $iso3,
