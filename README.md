@@ -62,41 +62,81 @@ FUTEMON is a modern web application built with Laravel 12 that allows users to b
    Update the following values in your `.env` file:
 
    ```env
-   # Application Configuration
-   APP_NAME="Futemon"
+    APP_NAME=Laravel
+    APP_ENV=local
+    APP_KEY=some-key
+    APP_DEBUG=true
+    APP_URL=http://localhost
+    
+    APP_LOCALE=en
+    APP_FALLBACK_LOCALE=en
+    APP_FAKER_LOCALE=en_US
+    
+    APP_MAINTENANCE_DRIVER=file
+    # APP_MAINTENANCE_STORE=database
+    
+    PHP_CLI_SERVER_WORKERS=4
+    
+    BCRYPT_ROUNDS=12
+    
+    LOG_CHANNEL=stack
+    LOG_STACK=single
+    LOG_DEPRECATIONS_CHANNEL=null
+    LOG_LEVEL=debug
+    
+    DB_CONNECTION=pgsql
+    DB_HOST=postgres
+    DB_PORT=5432
+    DB_DATABASE=futemon
+    DB_USERNAME=username
+    DB_PASSWORD=password
+    
+    SESSION_DRIVER=database
+    SESSION_LIFETIME=120
+    SESSION_ENCRYPT=false
+    SESSION_PATH=/
+    SESSION_DOMAIN=null
+    
+    BROADCAST_CONNECTION=log
+    FILESYSTEM_DISK=local
+    QUEUE_CONNECTION=database
+    
+    CACHE_STORE=redis
+    # CACHE_PREFIX=
+    
+    #MEMCACHED_HOST=127.0.0.1
+    
+    REDIS_CLIENT=phpredis
+    REDIS_HOST=redis
+    REDIS_PASSWORD=null
+    REDIS_PORT=6379
+    
+    MAIL_MAILER=log
+    MAIL_SCHEME=null
+    MAIL_HOST=127.0.0.1
+    MAIL_PORT=2525
+    MAIL_USERNAME=null
+    MAIL_PASSWORD=null
+    MAIL_FROM_ADDRESS="hello@example.com"
+    MAIL_FROM_NAME="${APP_NAME}"
+    
+    VITE_APP_NAME="${APP_NAME}"
+    
+    # Sportmonks API Configuration
+    SPORTMONKS_API_URL=https://api.sportmonks.com/v3/football/
+    SPORTMONKS_API_TOKEN=Jsome-key
+    SPORTMONKS_RATE_LIMIT=100
+    SPORTMONKS_TIMEOUT=30
+    SPORTSMONKS_MAX_RETRIES=3
+    SPORTSMONKS_BASE_DELAY_MS=1000
+    SPORTSMONKS_BACKOFF_MULTIPLIER=2.0
+    
+    
+    # Cache Configuration
+    CACHE_PLAYERS_TTL=3600
+    CACHE_SEARCH_TTL=1800
+    CACHE_NATIONALITIES_TTL=86400
 
-   # Database Configuration (Docker setup)
-   DB_CONNECTION=pgsql
-   DB_HOST=postgres
-   DB_PORT=5432
-   DB_DATABASE=futemon
-   DB_USERNAME=username
-   DB_PASSWORD=password
-
-   # Redis Configuration (Docker setup)
-   REDIS_HOST=redis
-   REDIS_PASSWORD=null
-   REDIS_PORT=6379
-
-   # Queue Configuration
-   QUEUE_CONNECTION=redis
-
-   # Cache Configuration
-   CACHE_DRIVER=redis
-
-   # Sportmonks API Configuration
-   SPORTMONKS_API_URL=https://api.sportmonks.com/v3/football
-   SPORTMONKS_API_TOKEN=your_api_token_here
-   SPORTMONKS_RATE_LIMIT=100
-   SPORTMONKS_TIMEOUT=30
-   SPORTSMONKS_MAX_RETRIES=3
-   SPORTSMONKS_BASE_DELAY_MS=1000
-   SPORTSMONKS_BACKOFF_MULTIPLIER=2.0   
-
-   # Cache TTL Configuration
-   CACHE_PLAYERS_TTL=3600
-   CACHE_SEARCH_TTL=1800
-   CACHE_NATIONALITIES_TTL=86400
    ```
 
 4. **Start the Docker environment**
@@ -129,11 +169,17 @@ FUTEMON is a modern web application built with Laravel 12 that allows users to b
    docker compose exec app npm install
    docker compose exec app npm run build
    ```
-
-9. **Import initial player data**
-
+9. **Run the app**
    ```bash
-   docker compose exec app php artisan players:import
+   docker compose exec app composer dev
+   ```
+
+10. **Run tests**
+   ```bash
+   docker compose exec app composer test
+   docker compose exec app composer test-parallel
+   docker compose exec app composer test-dry-run
+   docker compose exec app composer test-suit
    ```
 
 ### Traditional Setup Instructions
@@ -168,33 +214,81 @@ FUTEMON is a modern web application built with Laravel 12 that allows users to b
    Update the following values in your `.env` file:
 
    ```env
-   # Application Configuration
-   APP_NAME="Futemon"
+    APP_NAME=Laravel
+    APP_ENV=local
+    APP_KEY=some-key
+    APP_DEBUG=true
+    APP_URL=http://localhost
+    
+    APP_LOCALE=en
+    APP_FALLBACK_LOCALE=en
+    APP_FAKER_LOCALE=en_US
+    
+    APP_MAINTENANCE_DRIVER=file
+    # APP_MAINTENANCE_STORE=database
+    
+    PHP_CLI_SERVER_WORKERS=4
+    
+    BCRYPT_ROUNDS=12
+    
+    LOG_CHANNEL=stack
+    LOG_STACK=single
+    LOG_DEPRECATIONS_CHANNEL=null
+    LOG_LEVEL=debug
+    
+    DB_CONNECTION=pgsql
+    DB_HOST=postgres
+    DB_PORT=5432
+    DB_DATABASE=futemon
+    DB_USERNAME=username
+    DB_PASSWORD=password
+    
+    SESSION_DRIVER=database
+    SESSION_LIFETIME=120
+    SESSION_ENCRYPT=false
+    SESSION_PATH=/
+    SESSION_DOMAIN=null
+    
+    BROADCAST_CONNECTION=log
+    FILESYSTEM_DISK=local
+    QUEUE_CONNECTION=database
+    
+    CACHE_STORE=redis
+    # CACHE_PREFIX=
+    
+    #MEMCACHED_HOST=127.0.0.1
+    
+    REDIS_CLIENT=phpredis
+    REDIS_HOST=redis
+    REDIS_PASSWORD=null
+    REDIS_PORT=6379
+    
+    MAIL_MAILER=log
+    MAIL_SCHEME=null
+    MAIL_HOST=127.0.0.1
+    MAIL_PORT=2525
+    MAIL_USERNAME=null
+    MAIL_PASSWORD=null
+    MAIL_FROM_ADDRESS="hello@example.com"
+    MAIL_FROM_NAME="${APP_NAME}"
+    
+    VITE_APP_NAME="${APP_NAME}"
+    
+    # Sportmonks API Configuration
+    SPORTMONKS_API_URL=https://api.sportmonks.com/v3/football/
+    SPORTMONKS_API_TOKEN=Jsome-key
+    SPORTMONKS_RATE_LIMIT=100
+    SPORTMONKS_TIMEOUT=30
+    SPORTSMONKS_MAX_RETRIES=3
+    SPORTSMONKS_BASE_DELAY_MS=1000
+    SPORTSMONKS_BACKOFF_MULTIPLIER=2.0
+    
+    
+    # Cache Configuration
+    CACHE_PLAYERS_TTL=3600
+    CACHE_SEARCH_TTL=1800
+    CACHE_NATIONALITIES_TTL=86400
 
-   # Database Configuration
-   DB_CONNECTION=pgsql
-   DB_HOST=127.0.0.1
-   DB_PORT=5432
-   DB_DATABASE=futemon
-   DB_USERNAME=username
-   DB_PASSWORD=password
-
-   # Queue Configuration
-   QUEUE_CONNECTION=database
-
-   # Sportmonks API Configuration
-   SPORTMONKS_API_URL=https://api.sportmonks.com/v3/football
-   SPORTMONKS_API_TOKEN=your_api_token_here
-   SPORTMONKS_RATE_LIMIT=100
-   SPORTMONKS_TIMEOUT=30
-   SPORTSMONKS_MAX_RETRIES=3
-   SPORTSMONKS_BASE_DELAY_MS=1000
-   SPORTSMONKS_BACKOFF_MULTIPLIER=2.0
-
-   # Cache Configuration
-   CACHE_PLAYERS_TTL=3600
-   CACHE_SEARCH_TTL=1800
-   CACHE_NATIONALITIES_TTL=86400
    ```
 
 6. **Generate application key**
@@ -215,13 +309,20 @@ FUTEMON is a modern web application built with Laravel 12 that allows users to b
    npm run build
    ```
 
-9. **Import initial player data**
+## Running the Application
 
+9. **Run the app**
    ```bash
-   php artisan players:import
+   composer dev
    ```
 
-## Running the Application
+10. **Run tests**
+   ```bash
+   composer test
+   composer test-parallel
+   composer test-dry-run
+   composer test-suit
+   ```
 
 ### Docker Development Environment
 
@@ -239,10 +340,7 @@ Visit `http://localhost:8000` in your browser to access the application.
 
 ```bash
 # Start the Laravel development server
-php artisan serve
-
-# In a separate terminal, compile assets with hot reloading
-npm run dev
+composer dev
 ```
 
 Visit `http://localhost:8000` in your browser to access the application.
