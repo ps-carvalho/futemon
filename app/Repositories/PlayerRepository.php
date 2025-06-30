@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Repositories;
 
+use App\Constants\CountryConstants;
+use App\Constants\PlayerConstants;
 use App\Contracts\Repositories\IPlayerRepository;
 use App\Models\Player;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -17,7 +19,12 @@ final class PlayerRepository implements IPlayerRepository
      *
      * @return LengthAwarePaginator<int, Player>
      */
-    public function searchPlayers(?string $search, int $countryId = 0, int $perPage = 12, string $orderBy = 'name', string $direction = 'asc'): LengthAwarePaginator
+    public function searchPlayers(
+        ?string $search,
+        int $countryId = CountryConstants::DEFAULT_ID,
+        int $perPage = PlayerConstants::DEFAULT_PER_PAGE,
+        string $orderBy = PlayerConstants::DEFAULT_ORDER_BY,
+        string $direction = PlayerConstants::DEFAULT_DIRECTION): LengthAwarePaginator
     {
         return Player::query()
             ->with('country', 'position')

@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Services;
 
+use App\Constants\CountryConstants;
+use App\Constants\PlayerConstants;
 use App\Contracts\Repositories\IPlayerRepository;
 use App\Contracts\Services\IPlayerService;
 use App\Models\Player;
@@ -23,9 +25,14 @@ final class PlayersService implements IPlayerService
      *
      * @return LengthAwarePaginator<int, Player>
      */
-    public function searchPlayers(?string $search, int $countryCode = 0, int $perPage = 12, string $orderBy = 'name', string $direction = 'asc'): LengthAwarePaginator
+    public function searchPlayers(
+        ?string $search,
+        int $countryId = CountryConstants::DEFAULT_ID,
+        int $perPage = PlayerConstants::DEFAULT_PER_PAGE,
+        string $orderBy = PlayerConstants::DEFAULT_ORDER_BY,
+        string $direction = PlayerConstants::DEFAULT_DIRECTION): LengthAwarePaginator
     {
-        return $this->playerRepository->searchPlayers($search, $countryCode, $perPage, $orderBy, $direction);
+        return $this->playerRepository->searchPlayers($search, $countryId, $perPage, $orderBy, $direction);
     }
 
     public function getById(int $id): ?Player

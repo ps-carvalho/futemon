@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Livewire;
 
+use App\Constants\CountryConstants;
+use App\Constants\PlayerConstants;
 use App\Models\Player;
 use App\Repositories\PlayerRepository;
 use App\Services\PlayersService;
@@ -20,13 +22,13 @@ final class PlayersList extends Component
 
     public string $search = '';
 
-    public string $direction = 'asc';
+    public string $direction = PlayerConstants::DEFAULT_DIRECTION;
 
-    public string $orderBy = 'name';
+    public string $orderBy = PlayerConstants::DEFAULT_ORDER_BY;
 
-    public int $nationality = 0;
+    public int $nationality = CountryConstants::DEFAULT_ID;
 
-    public int $perPage = 12;
+    public int $perPage = PlayerConstants::DEFAULT_PER_PAGE;
 
     public int $page = 1;
 
@@ -35,20 +37,20 @@ final class PlayersList extends Component
      */
     protected $queryString = [
         'search' => ['except' => ''],
-        'direction' => ['except' => 'asc'],
-        'orderBy' => ['except' => 'name'],
-        'nationality' => ['except' => 0],
-        'perPage' => ['except' => 12],
+        'direction' => ['except' => PlayerConstants::DEFAULT_DIRECTION],
+        'orderBy' => ['except' => PlayerConstants::DEFAULT_ORDER_BY],
+        'nationality' => ['except' => CountryConstants::DEFAULT_ID],
+        'perPage' => ['except' => PlayerConstants::DEFAULT_PER_PAGE],
         'page' => ['except' => 1],
     ];
 
     public function mount(
         int $page = 1,
-        int $perPage = 12,
+        int $perPage = PlayerConstants::DEFAULT_PER_PAGE,
         string $search = '',
-        string $orderBy = 'name',
-        string $direction = 'asc',
-        int $nationality = 0
+        string $orderBy = PlayerConstants::DEFAULT_ORDER_BY,
+        string $direction = PlayerConstants::DEFAULT_DIRECTION,
+        int $nationality = CountryConstants::DEFAULT_ID,
     ): void {
         $this->page = $page;
         $this->perPage = $perPage;
