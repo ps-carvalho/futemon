@@ -2,7 +2,7 @@
 
 ## About This Project
 
-FUTEMON is a modern web application built with Laravel 12 that allows users to browse, search, and view detailed profiles of football players from around the world. The application integrates with the Sportmonks API to import and display comprehensive player data, including personal details, nationalities, positions, and more.
+FUTEMON is a modern web application built with Laravel 12 that allows users to browse, search, and view detailed profiles of football players from around the world. The application integrates with the Sportmonks API to import and display  player data, including personal details nationality and position.
 
 ### Key Features
 
