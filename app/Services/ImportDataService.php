@@ -204,6 +204,8 @@ final class ImportDataService implements IImportService
     /**
      * @param  array<string, mixed>  $response
      * @return array<int, PlayerImportDTO>
+     *
+     * @throws Exception
      */
     private function processApiResponse(array $response): array
     {
@@ -211,10 +213,14 @@ final class ImportDataService implements IImportService
             throw new RuntimeException('Invalid API response format');
         }
 
-        return array_map(
-            fn (array $playerData): PlayerImportDTO => PlayerImportDTO::fromApiData($playerData),
-            $response['data']
-        );
+        try {
+            return array_map(
+                fn (array $playerData): PlayerImportDTO => PlayerImportDTO::fromApiData($playerData),
+                $response['data']
+            );
+        } catch (Exception $e) {
+            throw new RuntimeException($e->getMessage());
+        }
     }
 
     /**
