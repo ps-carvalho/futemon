@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\DTOs;
 
+use App\Exceptions\ValidationException;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Support\Facades\Validator;
 
@@ -18,7 +20,7 @@ final class PlayerImportDTO
         public ?string $image_path,
         public CountryImportDto $country,
         public ?PositionImportDTO $position,
-        public ?string $date_of_birth,
+        public ?Carbon $date_of_birth,
         public ?int $height,
         public ?int $weight,
     ) {}
@@ -38,8 +40,6 @@ final class PlayerImportDTO
             'gender' => 'required|string|in:male,female',
             'image_path' => 'nullable|string|max:500',
             'date_of_birth' => 'nullable|date_format:Y-m-d',
-            'height' => 'nullable|integer|min:100|max:250',
-            'weight' => 'nullable|integer|min:40|max:250',
             'country' => 'required|array',
             'country.id' => 'required|integer|min:1',
             'country.name' => 'required|string|max:255',
@@ -59,7 +59,7 @@ final class PlayerImportDTO
         ]);
 
         if ($validator->fails()) {
-            throw new Exception('Invalid data received from API');
+            throw new ValidationException($validator->getMessageBag()->first() ?? 'Invalid data received from API');
         }
 
         return new self(
@@ -71,9 +71,27 @@ final class PlayerImportDTO
             image_path: $data['image_path'] ?? null,
             country: CountryImportDto::fromApiData($data['country']),
             position: isset($data['position']) ? PositionImportDTO::fromApiData($data['position']) : null,
-            date_of_birth: $data['date_of_birth'] ?? null,
-            height: $data['height'] ?? null,
-            weight: $data['weight'] ?? null,
+            date_of_birth: self::parseDateOfBirth($data['date_of_birth']),
+            height: self::toInteger($data['height']),
+            weight: self::toInteger($data['weight']),
         );
+    }
+
+    private static function toInteger(?int $value): int
+    {
+        if ($value === null) {
+            return 0;
+        }
+
+        return $value;
+    }
+
+    private static function parseDateOfBirth(?string $dateOfBirth): ?Carbon
+    {
+        if ($dateOfBirth === null || $dateOfBirth === '' || $dateOfBirth === '0') {
+            return null;
+        }
+
+        return Carbon::parse($dateOfBirth);
     }
 }
