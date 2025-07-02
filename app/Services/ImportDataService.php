@@ -218,8 +218,8 @@ final class ImportDataService implements IImportService
                 fn (array $playerData): PlayerImportDTO => PlayerImportDTO::fromApiData($playerData),
                 $response['data']
             );
-        } catch (Exception $e) {
-            throw new RuntimeException($e->getMessage());
+        } catch (Exception $exception) {
+            throw new RuntimeException($exception->getMessage());
         }
     }
 
