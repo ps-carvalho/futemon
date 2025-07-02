@@ -341,7 +341,6 @@ final class ImportDataServiceTest extends TestCase
 
     public function test_store_players(): void
     {
-        // Use reflection to access private method
         $reflectionMethod = new ReflectionClass(ImportDataService::class);
         $method = $reflectionMethod->getMethod('storePlayers');
         $method->setAccessible(true);
@@ -376,7 +375,7 @@ final class ImportDataServiceTest extends TestCase
             image_path: 'path/to/player.png',
             country: $country,
             position: $position,
-            date_of_birth: '1990-01-01',
+            date_of_birth: Carbon::parse('1990-01-01'),
             height: 180,
             weight: 75
         );
@@ -400,28 +399,5 @@ final class ImportDataServiceTest extends TestCase
             'name' => 'Test Player',
             'common_name' => 'Test Player Common',
         ]);
-    }
-
-    public function test_parse_date_of_birth_valid(): void
-    {
-        $reflectionMethod = new ReflectionClass(ImportDataService::class);
-        $method = $reflectionMethod->getMethod('parseDateOfBirth');
-        $method->setAccessible(true);
-
-        $result = $method->invoke($this->service, '1990-01-01');
-
-        $this->assertInstanceOf(Carbon::class, $result);
-        $this->assertEquals('1990-01-01', $result->toDateString());
-    }
-
-    public function test_parse_date_of_birth_invalid(): void
-    {
-        $reflectionMethod = new ReflectionClass(ImportDataService::class);
-        $method = $reflectionMethod->getMethod('parseDateOfBirth');
-        $method->setAccessible(true);
-
-        $this->assertNull($method->invoke($this->service, null));
-        $this->assertNull($method->invoke($this->service, ''));
-        $this->assertNull($method->invoke($this->service, '0'));
     }
 }
