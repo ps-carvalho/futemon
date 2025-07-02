@@ -41,7 +41,6 @@ final class PlayerRepository implements IPlayerRepository
             ->paginate($perPage);
     }
 
-
     public function getById(int $id): ?Player
     {
         return Player::query()
