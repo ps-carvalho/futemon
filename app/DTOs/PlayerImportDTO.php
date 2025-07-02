@@ -4,7 +4,10 @@ declare(strict_types=1);
 
 namespace App\DTOs;
 
-class PlayerImportDTO
+use Exception;
+use Illuminate\Support\Facades\Validator;
+
+final class PlayerImportDTO
 {
     public function __construct(
         public int $imported_id,
@@ -22,9 +25,43 @@ class PlayerImportDTO
 
     /**
      * @param  array<string, mixed>  $data
+     *
+     * @throws Exception
      */
     public static function fromApiData(array $data): self
     {
+        $validator = Validator::make($data, [
+            'id' => 'required|integer|min:1',
+            'name' => 'required|string|max:255',
+            'common_name' => 'nullable|string|max:255',
+            'display_name' => 'nullable|string|max:255',
+            'gender' => 'required|string|in:male,female',
+            'image_path' => 'nullable|string|max:500',
+            'date_of_birth' => 'nullable|date_format:Y-m-d',
+            'height' => 'nullable|integer|min:100|max:250',
+            'weight' => 'nullable|integer|min:40|max:250',
+            'country' => 'required|array',
+            'country.id' => 'required|integer|min:1',
+            'country.name' => 'required|string|max:255',
+            'country.official_name' => 'nullable|string|max:255',
+            'country.fifa_name' => 'nullable|string|max:255',
+            'country.iso2' => 'nullable|string|size:2',
+            'country.iso3' => 'nullable|string|size:3',
+            'country.longitude' => 'nullable|numeric|between:-180,180',
+            'country.latitude' => 'nullable|numeric|between:-90,90',
+            'position' => 'nullable|array',
+            'position.id' => 'required_with:position|integer|min:1',
+            'position.name' => 'required_with:position|string|max:255',
+            'position.code' => 'required_with:position|string|max:10',
+            'position.developer_name' => 'nullable|string|max:255',
+            'position.model_type' => 'nullable|string|max:255',
+            'position.stat_group' => 'nullable|string|max:255',
+        ]);
+
+        if ($validator->fails()) {
+            throw new Exception('Invalid data received from API');
+        }
+
         return new self(
             imported_id: $data['id'],
             name: $data['name'],
