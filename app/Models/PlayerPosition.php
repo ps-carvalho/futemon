@@ -9,13 +9,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * @property-read int $id
- * @property-read int $imported_id
- * @property-read string $name
- * @property-read string $code
- * @property-read string $developer_name
- * @property-read string $model_type
- * @property-read string $stat_group
+ * @property int $id
+ * @property int $imported_id
+ * @property string $name
+ * @property string $code
+ * @property string $developer_name
+ * @property string $model_type
+ * @property string $stat_group
  */
 final class PlayerPosition extends Model
 {

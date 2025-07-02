@@ -9,16 +9,16 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * @property-read int $id
- * @property-read int $imported_id
- * @property-read string $name
- * @property-read string $official_name
- * @property-read string|null $image_path
- * @property-read string $fifa_name
- * @property-read string $iso2
- * @property-read string $iso3
- * @property-read string $latitude
- * @property-read string $longitude
+ * @property int $id
+ * @property int $imported_id
+ * @property string $name
+ * @property string $official_name
+ * @property string|null $image_path
+ * @property string $fifa_name
+ * @property string $iso2
+ * @property string $iso3
+ * @property string $latitude
+ * @property string $longitude
  */
 final class Country extends Model
 {
