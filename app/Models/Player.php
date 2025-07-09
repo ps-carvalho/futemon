@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Enums\SortDirection;
 use App\Traits\NormalizesNames;
 use Database\Factories\PlayerFactory;
 use Illuminate\Database\Eloquent\Builder;
@@ -89,9 +90,12 @@ final class Player extends Model
      * @param  Builder<Player>  $query
      * @return Builder<Player>
      */
-    public function scopeOrderByNameNormalized(Builder $query, string $direction = 'asc'): Builder
+    public function scopeOrderByNameNormalized(Builder $query, string $direction = SortDirection::ASC->value): Builder
     {
-        $validDirection = in_array(mb_strtoupper($direction), ['ASC', 'DESC']) ? mb_strtoupper($direction) : 'ASC';
+        $validDirection = in_array(mb_strtoupper($direction), [
+            SortDirection::ASC->value,
+            SortDirection::DESC->value,
+        ]) ? mb_strtoupper($direction) : SortDirection::ASC->value;
 
         return $query->orderBy('normalized_name', $validDirection);
 
