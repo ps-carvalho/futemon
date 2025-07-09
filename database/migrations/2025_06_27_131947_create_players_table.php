@@ -19,6 +19,7 @@ return new class extends Migration
             $table->integer('position_id')->nullable()->index();
             $table->integer('country_id')->index();
             $table->string('name')->index();
+            $table->string('normalized_name')->nullable()->index();
             $table->string('common_name');
             $table->string('display_name');
             $table->enum('gender', ['male', 'female'])->default('male');
