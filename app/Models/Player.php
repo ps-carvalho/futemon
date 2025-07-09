@@ -118,7 +118,3 @@ final class Player extends Model
         });
     }
 }
-
-//                return $query->orderByRaw("
-//                TRANSLATE(LOWER(name), 'áéíóúýþæðöàèìòùâêîôûãõñäëïöüÿýþæðøł', 'aeiouytaedoaeiouaeiouaeiouanoaeiouyytaedol') {$validDirection}
-//            ");
