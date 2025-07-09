@@ -80,7 +80,7 @@ final class Player extends Model
     public function scopeSearch(Builder $query, string $term): Builder
     {
         collect(explode(' ', $term))
-            ->each(fn ($word) => $query->whereRaw('LOWER(name) LIKE LOWER(?)', [sprintf('%%%s%%', $word)]));
+            ->each(fn ($word) => $query->whereRaw('LOWER(normalized_name) LIKE LOWER(?)', [sprintf('%%%s%%', $word)]));
 
         return $query;
     }
