@@ -3,6 +3,8 @@
 declare(strict_types=1);
 
 use Rector\Config\RectorConfig;
+use Rector\DeadCode\Rector\ClassMethod\RemoveUselessReturnTagRector;
+use Rector\DeadCode\Rector\Property\RemoveUselessVarTagRector;
 
 return RectorConfig::configure()
     ->withPaths([
@@ -13,6 +15,11 @@ return RectorConfig::configure()
         __DIR__.'/resources',
         __DIR__.'/routes',
         __DIR__.'/tests',
+    ])
+
+    ->withSkip([
+        RemoveUselessReturnTagRector::class,
+        RemoveUselessVarTagRector::class,
     ])
     // uncomment to reach your current PHP version
     ->withPreparedSets(
