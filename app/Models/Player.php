@@ -80,7 +80,7 @@ final class Player extends Model
     public function scopeSearch(Builder $query, string $term): Builder
     {
         collect(explode(' ', $term))
-            ->each(fn ($word) => $query->whereRaw('LOWER(normalized_name) LIKE LOWER(?)', [sprintf('%%%s%%', $word)]));
+            ->each(fn ($word) => $query->where('normalized_name', 'LIKE', sprintf('%%%s%%', mb_strtolower($word))));
 
         return $query;
     }
@@ -109,11 +109,11 @@ final class Player extends Model
     /**
      * Boot method to automatically normalize names
      */
-    protected static function boot()
+    protected static function boot(): void
     {
         parent::boot();
 
-        self::saving(function ($player) {
+        self::saving(function ($player): void {
             $player->normalized_name = self::normalizeName($player->name);
         });
     }
