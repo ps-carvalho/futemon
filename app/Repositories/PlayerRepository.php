@@ -32,9 +32,7 @@ final class PlayerRepository implements IPlayerRepository
             ->when($search, fn ($q) => $q->search($search))
             ->whereNotNull('date_of_birth')
             ->when($orderBy === 'name', function ($query) use ($direction) {
-                return $query->orderByRaw("
-                TRANSLATE(LOWER(name), 'áéíóúýþæðöàèìòùâêîôûãõñäëïöüÿýþæðøł', 'aeiouytaedoaeiouaeiouaeiouanoaeiouyytaedol') {$direction}
-            ");
+                return $query->OrderByNameNormalized($direction);
             }, function ($query) use ($orderBy, $direction) {
                 return $query->orderBy($orderBy, $direction);
             })
