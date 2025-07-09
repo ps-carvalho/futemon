@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use App\Constants\CountryConstants;
-use App\Constants\PlayerConstants;
+use App\Enums\FilterDefault;
+use App\Enums\PaginationDefault;
+use App\Enums\SortDefault;
+use App\Enums\SortDirection;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
@@ -50,10 +52,10 @@ final class PlayersController extends Controller
 
         return view('players', [
             'page' => $request->query->get('page') ?? 1,
-            'perPage' => $request->query->get('perPage') ?? PlayerConstants::DEFAULT_PER_PAGE,
-            'nationality' => $request->query->get('nationality') ?? CountryConstants::DEFAULT_ID,
-            'orderBy' => $request->query->get('orderBy') ?? PlayerConstants::DEFAULT_ORDER_BY,
-            'direction' => $request->query->get('direction') ?? PlayerConstants::DEFAULT_DIRECTION,
+            'perPage' => $request->query->get('perPage') ?? PaginationDefault::PER_PAGE->value,
+            'nationality' => $request->query->get('nationality') ?? FilterDefault::COUNTRY_ID->value,
+            'orderBy' => $request->query->get('orderBy') ?? SortDefault::ORDER_BY->value,
+            'direction' => $request->query->get('direction') ?? SortDirection::ASC->value,
             'search' => $request->query->get('search') ?? '',
         ]);
     }
