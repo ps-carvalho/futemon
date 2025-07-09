@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace App\Livewire;
 
-use App\Constants\CountryConstants;
-use App\Constants\PlayerConstants;
+use App\Enums\FilterDefault;
+use App\Enums\PaginationDefault;
+use App\Enums\SortDefault;
+use App\Enums\SortDirection;
 use App\Models\Player;
 use App\Repositories\PlayerRepository;
 use App\Services\PlayersService;
@@ -22,13 +24,13 @@ final class PlayersList extends Component
 
     public string $search = '';
 
-    public string $direction = PlayerConstants::DEFAULT_DIRECTION;
+    public string $direction = SortDirection::ASC->value;
 
-    public string $orderBy = PlayerConstants::DEFAULT_ORDER_BY;
+    public string $orderBy = SortDefault::ORDER_BY->value;
 
-    public int $nationality = CountryConstants::DEFAULT_ID;
+    public int $nationality = FilterDefault::COUNTRY_ID->value;
 
-    public int $perPage = PlayerConstants::DEFAULT_PER_PAGE;
+    public int $perPage = PaginationDefault::PER_PAGE->value;
 
     public int $page = 1;
 
@@ -37,20 +39,20 @@ final class PlayersList extends Component
      */
     protected $queryString = [
         'search' => ['except' => ''],
-        'direction' => ['except' => PlayerConstants::DEFAULT_DIRECTION],
-        'orderBy' => ['except' => PlayerConstants::DEFAULT_ORDER_BY],
-        'nationality' => ['except' => CountryConstants::DEFAULT_ID],
-        'perPage' => ['except' => PlayerConstants::DEFAULT_PER_PAGE],
+        'direction' => ['except' => SortDirection::ASC->value],
+        'orderBy' => ['except' => SortDefault::ORDER_BY->value],
+        'nationality' => ['except' => FilterDefault::COUNTRY_ID->value],
+        'perPage' => ['except' => PaginationDefault::PER_PAGE->value],
         'page' => ['except' => 1],
     ];
 
     public function mount(
         int $page = 1,
-        int $perPage = PlayerConstants::DEFAULT_PER_PAGE,
+        int $perPage = PaginationDefault::PER_PAGE->value,
         string $search = '',
-        string $orderBy = PlayerConstants::DEFAULT_ORDER_BY,
-        string $direction = PlayerConstants::DEFAULT_DIRECTION,
-        int $nationality = CountryConstants::DEFAULT_ID,
+        string $orderBy = SortDefault::ORDER_BY->value,
+        string $direction = SortDirection::ASC->value,
+        int $nationality = FilterDefault::COUNTRY_ID->value,
     ): void {
         $this->page = $page;
         $this->perPage = $perPage;

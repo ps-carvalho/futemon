@@ -11,16 +11,22 @@ use Livewire\Component;
 final class PlayerCard extends Component
 {
     /**
+     *  The player instance
+     *
      * @var Player
      */
     public Player $player;
 
     /**
+     *  Modal open state
+     *
      * @var bool
      */
     public bool $showModal = false;
 
     /**
+     *  Open Modal
+     *
      * @return void
      */
     public function openModal(): void
@@ -29,6 +35,8 @@ final class PlayerCard extends Component
     }
 
     /**
+     *  Close Modal
+     *
      * @return void
      */
     public function closeModal(): void
@@ -37,6 +45,8 @@ final class PlayerCard extends Component
     }
 
     /**
+     *  Player card view
+     *
      * @return View
      */
     public function render(): View

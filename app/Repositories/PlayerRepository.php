@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace App\Repositories;
 
-use App\Constants\CountryConstants;
-use App\Constants\PlayerConstants;
 use App\Contracts\Repositories\IPlayerRepository;
+use App\Enums\FilterDefault;
+use App\Enums\PaginationDefault;
+use App\Enums\SortDefault;
+use App\Enums\SortDirection;
 use App\Models\Player;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
@@ -21,10 +23,10 @@ final class PlayerRepository implements IPlayerRepository
      */
     public function searchPlayers(
         ?string $search,
-        int $countryId = CountryConstants::DEFAULT_ID,
-        int $perPage = PlayerConstants::DEFAULT_PER_PAGE,
-        string $orderBy = PlayerConstants::DEFAULT_ORDER_BY,
-        string $direction = PlayerConstants::DEFAULT_DIRECTION): LengthAwarePaginator
+        int $countryId = FilterDefault::COUNTRY_ID->value,
+        int $perPage = PaginationDefault::PER_PAGE->value,
+        string $orderBy = SortDefault::ORDER_BY->value,
+        string $direction = SortDirection::ASC->value): LengthAwarePaginator
     {
         return Player::query()
             ->with('country', 'position')
