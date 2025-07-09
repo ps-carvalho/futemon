@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Traits\NormalizesNames;
 use Database\Factories\PlayerFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -30,11 +31,14 @@ final class Player extends Model
     /** @use HasFactory<PlayerFactory> */
     use HasFactory;
 
+    use NormalizesNames;
+
     protected $fillable = [
         'imported_id',
         'position_id',
         'country_id',
         'name',
+        'normalized_name',
         'common_name',
         'display_name',
         'gender',
@@ -81,6 +85,18 @@ final class Player extends Model
         return $query;
     }
 
+    /**
+     * @param  Builder<Player>  $query
+     * @return Builder<Player>
+     */
+    public function scopeOrderByNameNormalized(Builder $query, string $direction = 'asc'): Builder
+    {
+        $validDirection = in_array(mb_strtoupper($direction), ['ASC', 'DESC']) ? mb_strtoupper($direction) : 'ASC';
+
+        return $query->orderBy('normalized_name', $validDirection);
+
+    }
+
     public function getAge(): int
     {
         if ($this->date_of_birth === null) {
@@ -89,4 +105,20 @@ final class Player extends Model
 
         return $this->date_of_birth->age;
     }
+
+    /**
+     * Boot method to automatically normalize names
+     */
+    protected static function boot()
+    {
+        parent::boot();
+
+        self::saving(function ($player) {
+            $player->normalized_name = self::normalizeName($player->name);
+        });
+    }
 }
+
+//                return $query->orderByRaw("
+//                TRANSLATE(LOWER(name), 'áéíóúýþæðöàèìòùâêîôûãõñäëïöüÿýþæðøł', 'aeiouytaedoaeiouaeiouaeiouanoaeiouyytaedol') {$validDirection}
+//            ");
